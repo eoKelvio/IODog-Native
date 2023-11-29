@@ -8,7 +8,7 @@ import Log from './Log';
 
 const Stack = createStackNavigator();
 
-const App = () => {
+export default function App(){
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Index">
@@ -27,4 +27,5 @@ const App = () => {
   );
 };
 
-export default App;
+
+

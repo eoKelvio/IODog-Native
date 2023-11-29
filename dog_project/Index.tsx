@@ -15,7 +15,7 @@ type IndexProps = {
   navigation: StackNavigationProp<RootStackParamList, "Index">;
 };
 
-const Index: React.FC<IndexProps> = ({ navigation }) => {
+export default function Index ({ navigation }: IndexProps) {
   return (
     <View style={styles.container}>
       <View style={styles.bord}>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#1E86E6",
     borderWidth: 30,
+    borderTopWidth:50,
     backgroundColor: "#1E86E6",
     height: "100%",
     width: "100%",
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     borderColor: "#ffffff",
-    borderWidth: 30,
+    borderWidth: 20,
     borderRadius: 30,
     backgroundColor: "#ffffff",
     width: "100%",
@@ -152,4 +153,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Index;
+

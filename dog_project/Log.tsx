@@ -13,7 +13,7 @@ type LogProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Log'>;
 };
 
-const Log: React.FC<LogProps> = ({ navigation }) => {
+export default function Log ({ navigation }: LogProps) {
   return (
     <View style={styles.container}>
       <View style={styles.bord}>
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#1E86E6',
     borderWidth: 30,
+    borderTopWidth:50,
     backgroundColor: '#1E86E6',
     height: '100%',
     width: '100%',
@@ -49,4 +50,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Log;
