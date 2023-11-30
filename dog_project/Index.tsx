@@ -5,6 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import CustomButton from "./components/CustomButton";
 import Box from "./components/Box";
 import { Times } from "./components/Times";
+import PopupEditar from "./components/BotaoEditar";
 
 type RootStackParamList = {
   Index: undefined;
@@ -26,6 +27,9 @@ export default function Index ({ navigation }: IndexProps) {
             <Times>09:00</Times>
             <Times>18:00</Times>
             <Times>22:00</Times>
+          </View>
+          <View>
+            <PopupEditar/>
           </View>
         </Box>
         <Box>
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     width: "100%",
     height: "85%",
-    gap: 20,
+    gap: 33,
   },
   title: {
     fontWeight: "bold",
