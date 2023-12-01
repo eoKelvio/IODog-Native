@@ -7,7 +7,7 @@ interface BoxProps extends TouchableOpacityProps {
     image?: any; // Alteração para a propriedade image aceitar a referência direta da imagem
   }
 
-export default function PortionButton({ children, image, ...restProps }: BoxProps) {
+export default function FoodLevel({ children, image, ...restProps }: BoxProps) {
   const boxStyle: ViewStyle = {
     backgroundColor: '#1E86E6',
     width: '100%',
@@ -20,28 +20,26 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
   };
 
   return (
-    <TouchableOpacity {...restProps}>
       <View style={[boxStyle]}>
 
         <View>
-          <Image style={styles.imagen} source={require('../imgs/racao.png')}/>
+          <Image style={styles.imagen} source={require('../imgs/sacoRacao.png')}/>
         </View>
 
         <View style={styles.divisor}>
 
           <View>
-            <Text style={styles.defaultText}>Porções</Text>
+            <Text style={styles.defaultText}>Nível de ração</Text>
           </View>
 
           <View style={styles.rows}>
             <Text style={styles.altText}>2</Text>
-            <Text style={styles.defaultText}>Und</Text>
+            <Text style={styles.altText}>%</Text>
           </View>
 
         </View>
 
       </View>
-    </TouchableOpacity>
   );
 }
 

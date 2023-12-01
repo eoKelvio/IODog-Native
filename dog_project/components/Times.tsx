@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingLeft: 15,
     borderColor: "black",
+    width:"90%"
   },
   left: {
     flex: 1,

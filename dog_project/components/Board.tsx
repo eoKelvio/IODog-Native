@@ -1,18 +1,18 @@
-﻿import React, { ReactNode } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+﻿import React, { ReactNode } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 interface BoxProps {
-  children?: ReactNode;
+  children?: ReactNode,
+  tittle?: string;
 }
 
-export default function Board({ children }: BoxProps) {
+export default function Board({ children, tittle }: BoxProps) {
   return (
     <View style={styles.box}>
+      <Text style={styles.tittle}>{tittle}</Text>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === Text) {
-          return React.cloneElement(child, {
-            style: [styles.defaultText, child.props.style],
-          });
+          return React.cloneElement(child, {});
         }
         return child;
       })}
@@ -22,18 +22,22 @@ export default function Board({ children }: BoxProps) {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: '#ffffff',
-    width: '90%',
-    height: 'auto',
+    backgroundColor: "#ffffff",
+    width: "90%",
+    height: "auto",
     borderRadius: 30,
     padding: 15,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    alignItems: "center",
+    justifyContent: "space-evenly",
     gap: 10,
   },
-  
+
   defaultText: {
     fontSize: 18,
-    fontWeight: '500'
+    fontWeight: "500",
+  },
+  tittle: {
+    fontSize: 38,
+    fontWeight: "500",
   },
 });

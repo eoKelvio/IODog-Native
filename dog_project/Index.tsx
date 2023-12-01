@@ -1,15 +1,13 @@
 // Index.tsx
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import CustomButton from "./components/CustomButton";
-import Box from "./components/Box";
+import HoursBox from "./components/HoursBox";
 import { Times } from "./components/Times";
-import PopupEditar from "./components/BotaoEditar";
 import Container from "./components/Container";
 import Board from "./components/Board";
-import BotaoEditar from "./components/BotaoEditar";
 import PortionButton from "./components/PortionButton";
+import FoodLevel from "./components/FoodLevel";
 
 type RootStackParamList = {
   Index: undefined;
@@ -23,28 +21,26 @@ type IndexProps = {
 export default function Index({ navigation }: IndexProps) {
   return (
     <Container>
-      <Board>
-        <Box direction="column">
-          <Text>Horários programados</Text>
-            <Times>10:00</Times>
-            <Times>11:00</Times>
-            <Times>12:00</Times>
-            <BotaoEditar></BotaoEditar>
-        </Box>
+      <Board tittle="IODog">
 
-        <PortionButton>
-          <Text>2</Text>
-        </PortionButton>
+        <HoursBox direction="column">
+          <Times>10:00</Times>
+          <Times>10:00</Times>
+          <Times>10:00</Times>
+          <Times>10:00</Times>
+        </HoursBox>
+
+        <PortionButton></PortionButton>
+
+        <FoodLevel></FoodLevel>
         
-        <Box direction="row">
-          <Text>1</Text>
-          <Text>1</Text>
-        </Box>
       </Board>
 
-      <CustomButton title="Relatorios e informações" onPress={() => navigation.navigate("Log")}></CustomButton>
+      <CustomButton
+        title="Relatorios e informações"
+        img_source={require("./imgs/log.png")}
+        onPress={() => navigation.navigate("Log")}
+      ></CustomButton>
     </Container>
   );
 }
-
-

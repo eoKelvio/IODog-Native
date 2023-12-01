@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-around",
-        gap:20
+        gap:20,
+        paddingTop:30,
+        paddingBottom:10
     }
 })

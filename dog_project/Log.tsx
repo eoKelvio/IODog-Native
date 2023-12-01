@@ -1,8 +1,9 @@
 // Log.tsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import CustomButton from './components/CustomButton';
+import Container from './components/Container';
+import Board from './components/Board';
 
 type RootStackParamList = {
   Index: undefined;
@@ -15,38 +16,16 @@ type LogProps = {
 
 export default function Log ({ navigation }: LogProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.bord}>
-        <Text>Log Page</Text>
-        <CustomButton
-          title="Go to Index"
-          onPress={() => navigation.navigate('Index')}
-        />
-      </View>
-    </View>
+    <Container>
+      <Board tittle='Relatórios'>
+
+      </Board>
+      <CustomButton
+        title="Menu principal"
+        img_source={require('./imgs/relogio.png')}
+        onPress={() => navigation.navigate("Index")}
+      ></CustomButton>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    borderColor: '#1E86E6',
-    borderWidth: 30,
-    borderTopWidth:50,
-    backgroundColor: '#1E86E6',
-    height: '100%',
-    width: '100%',
-  },
-  bord: {
-    display: 'flex',
-    flexDirection: 'column',
-    borderColor: '#ffffff',
-    borderWidth: 30,
-    borderRadius: 30,
-    backgroundColor: '#ffffff',
-    width: '100%',
-    height: '100%',
-  },
-});
 
