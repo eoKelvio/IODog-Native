@@ -1,13 +1,26 @@
 import React, { ReactNode } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 
 interface BoxProps {
   children?: ReactNode;
+  direction: 'row' | 'column'; // Define o tipo específico para direction
 }
 
-export default function Box({ children }: BoxProps) {
+export default function Box({ children, direction }: BoxProps) {
+  const boxStyle: ViewStyle = {
+    backgroundColor: '#1E86E6',
+    width: '100%',
+    height: 'auto',
+    borderRadius: 30,
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    flexDirection: direction, // Define a direção do flexbox com base na propriedade direction
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.box, boxStyle]}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === Text) {
           return React.cloneElement(child, {
@@ -21,19 +34,13 @@ export default function Box({ children }: BoxProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#1E86E6',
-    width: '100%',
-    height: 'auto',
-    borderRadius: 30,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
+  box: {
+    // Estilos adicionais do container
   },
+  
   defaultText: {
     color: 'white',
     fontSize: 18,
-    fontWeight: '500'
+    fontWeight: '500',
   },
 });

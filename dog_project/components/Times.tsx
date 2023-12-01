@@ -36,6 +36,7 @@ const Times = ({ children }: TimesProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingRight: 15,
     paddingLeft: 15,
+    borderColor: "black",
   },
   left: {
     flex: 1,

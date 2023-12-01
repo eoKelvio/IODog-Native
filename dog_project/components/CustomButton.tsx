@@ -18,8 +18,8 @@ export default function CustomButton({ title, ...restProps }: CustomButtonProps)
 const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: 'white',
-    width: '100%',
-    height: '35%',
+    width: '90%',
+    height: 'auto',
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
