@@ -1,17 +1,40 @@
-import React, { FC } from 'react';
-import { View, StyleSheet, Modal, Text, TouchableOpacity, Image } from 'react-native';
-
+import React, { FC, useState } from 'react';
+import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import { isValid, parse } from 'date-fns';
 
 interface CustomPopupProps {
   isVisible: boolean;
   onClose: () => void;
   title: string;
-  time: string;
-  img1: any,
-  img2: any
+  initialTime: string;
+  img1: any;
+  img2: any;
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, time, img1, img2 }) => {
+const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialTime, img1, img2 }) => {
+  const [time, setTime] = useState(initialTime);
+
+  const handleTimeChange = (newTime: string) => {
+    // Removendo caracteres não numéricos usando regex
+    const numericValue = newTime.replace(/[^0-9]/g, '');
+
+    // Formatando a entrada como hora (HH:mm)
+    const formattedTime = numericValue.replace(/(\d{0,2})(\d{0,2})/, (match, p1, p2) => {
+      if (p1 && p2) {
+        return `${p1}:${p2}`;
+      } else if (p1) {
+        return `${p1}`;
+      } else {
+        return '';
+      }
+    });
+
+    // Verificando se a entrada é válida antes de atualizar o estado
+    if (isValid(parse(formattedTime, 'HH:mm', new Date()))) {
+      setTime(formattedTime);
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -22,9 +45,16 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, time, im
       <View style={styles.popupContainer}>
         <View style={styles.popupContent}>
           <Text style={styles.title}>{title}</Text>
-          <View style={styles.timeContainer}>
-            <Text style={styles.time}>{time}</Text>
-          </View>
+          
+          {/* Adicionando o campo de entrada de texto para o horário */}
+          <TextInput
+            style={styles.timeContainer}
+            value={time}
+            onChangeText={handleTimeChange}
+            placeholder="Digite o horário"
+            keyboardType="numeric" // Configurando para aceitar apenas números
+          />
+
           <View style={styles.circleContainer}>
             <TouchableOpacity onPress={onClose}>
               <Image source={img1} style={styles.circleImage} />
@@ -52,25 +82,26 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 300,
     display: 'flex',
-    gap: 20
+    gap: 20,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    marginLeft: 70
+    marginLeft: 70,
   },
   timeContainer: {
     backgroundColor: 'lightgray',
     borderRadius: 50,
-    width: 200,
     padding: 10,
     marginBottom: 10,
-    marginLeft: 30
+    marginLeft: 30,
+    right: 15, 
+    textAlign: 'center'
   },
   time: {
     fontSize: 16,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   circleContainer: {
     marginBottom: 10,
@@ -79,7 +110,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 50,
-
   },
   circle: {
     width: 35,
