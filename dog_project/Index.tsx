@@ -10,6 +10,8 @@ import Board from "./components/Board";
 import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 
+import fetchHours from "./scripts/fecthHours";
+
 type RootStackParamList = {
   Index: undefined;
   Log: undefined;
@@ -20,62 +22,28 @@ type IndexProps = {
 };
 
 export default function Index({ navigation }: IndexProps) {
-  const [hours, setHours] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [hours, setHours] = useState([]);
   const [error, setError] = useState(false);
 
-  const fetchHours = async () => {
-    try {
-      const response = await fetch(
-        "https://eokelvio.pythonanywhere.com/hours/"
-      );
-
-      if (response.ok) {
-        const json = await response.json();
-        if (Array.isArray(json)) {
-          const extractedHours = json.map((item) => item.times);
-          setHours(extractedHours);
-        } else {
-          setError(true);
-        }
-      } else {
-        setError(true);
-      }
-    } catch (error) {
-      console.error(error);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchHours();
+    fetchHours(setHours, setError);
   }, []);
-
-  const handleRefresh = () => {
-    setLoading(true);
-    setError(false);
-    fetchHours();
-  };
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
 
   return (
     <Container>
+
       <Board tittle="IODog">
+
         <HoursBox direction="column">
-          {hours.map((time, index) => (
-            <Times key={index}>{time}</Times>
-          ))}
-          <CustomButton
-            title="Refresh  "
-            img_source={require("./imgs/log.png")}
-            onPress={handleRefresh}
-          ></CustomButton>
+        {hours.length > 0 ? (
+          hours.map((hours) => (
+            <Times>{hours.times}</Times>
+          ))
+        ) : (
+          <Text>Loading...</Text>
+        )}
         </HoursBox>
+
 
         <PortionButton></PortionButton>
 
