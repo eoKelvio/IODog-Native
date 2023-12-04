@@ -1,5 +1,6 @@
 // Index.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import CustomButton from "./components/CustomButton";
 import HoursBox from "./components/HoursBox";
@@ -19,21 +20,66 @@ type IndexProps = {
 };
 
 export default function Index({ navigation }: IndexProps) {
+  const [hours, setHours] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const fetchHours = async () => {
+    try {
+      const response = await fetch(
+        "https://eokelvio.pythonanywhere.com/hours/"
+      );
+
+      if (response.ok) {
+        const json = await response.json();
+        if (Array.isArray(json)) {
+          const extractedHours = json.map((item) => item.times);
+          setHours(extractedHours);
+        } else {
+          setError(true);
+        }
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHours();
+  }, []);
+
+  const handleRefresh = () => {
+    setLoading(true);
+    setError(false);
+    fetchHours();
+  };
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <Container>
       <Board tittle="IODog">
-
         <HoursBox direction="column">
-          <Times>10:00</Times>
-          <Times>10:00</Times>
-          <Times>10:00</Times>
-          <Times>10:00</Times>
+          {hours.map((time, index) => (
+            <Times key={index}>{time}</Times>
+          ))}
+          <CustomButton
+            title="Refresh  "
+            img_source={require("./imgs/log.png")}
+            onPress={handleRefresh}
+          ></CustomButton>
         </HoursBox>
 
         <PortionButton></PortionButton>
 
         <FoodLevel></FoodLevel>
-        
       </Board>
 
       <CustomButton
