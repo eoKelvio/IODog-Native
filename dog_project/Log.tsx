@@ -18,7 +18,7 @@ type LogProps = {
 };
 
 export default function Log({ navigation }: LogProps) {
-  const [hours, setLogs] = useState([]);
+  const [logs, setLogs] = useState([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function Log({ navigation }: LogProps) {
   return (
     <Container>
       <Board tittle='Relatórios'>
-        {hours.length > 0 ? (
-          hours.map((log) => (
+        {logs.length > 0 ? (
+          logs.map((log) => (
             <View key={log.id}>
               <Text>ID: {log.id}</Text>
               <Text>Food Liberation: {log.food_liberation ? 'Yes' : 'No'}</Text>
