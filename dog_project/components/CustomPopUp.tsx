@@ -7,9 +7,11 @@ interface CustomPopupProps {
   onClose: () => void;
   title: string;
   time: string;
+  img1: any,
+  img2: any
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, time }) => {
+const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, time, img1, img2 }) => {
   return (
     <Modal
       animationType="slide"
@@ -25,10 +27,10 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, time }) 
           </View>
           <View style={styles.circleContainer}>
             <TouchableOpacity onPress={onClose}>
-              <Image source={require('../imgs/verifica.png')} style={styles.circleImage} />
+              <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onClose}>
-              <Image source={require('../imgs/excluir.png')} style={styles.circleImage} />
+              <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>
         </View>
