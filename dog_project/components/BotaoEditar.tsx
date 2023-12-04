@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import adicionar from '../imgs/adicionar.png';
 import CustomPopup from './CustomPopUp';
 
 const BotaoEditar = () => {
@@ -18,15 +17,17 @@ const BotaoEditar = () => {
     <View>
       <TouchableOpacity onPress={handlePress}>
         <View style={styles.botaobranco}>
-          <Image source={adicionar} style={styles.image} />
+          <Image source={require('../imgs/adicionar.png')} style={styles.image} />
         </View>
       </TouchableOpacity>
 
       <CustomPopup
         isVisible={isPopupVisible}
         onClose={closePopup}
-        title="Editar Horário"
-        time="10:00"
+        title="Definir Horário"
+        time="00:00"
+        img1={require('../imgs/verifica.png')}
+        img2={require('../imgs/cancelar.png')}
       />
     </View>
   );

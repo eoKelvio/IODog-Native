@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import CustomPopup from './CustomPopUp';
 
 interface TimesProps {
   children?: ReactNode;
@@ -7,6 +8,15 @@ interface TimesProps {
 
 const Times = ({ children }: TimesProps) => {
   const imagemUrl = require('../imgs/relogio.png');
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const handleEditarPress = () => {
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -27,9 +37,18 @@ const Times = ({ children }: TimesProps) => {
       <Text style={styles.barraVertical}>|</Text>
 
       {/* Parte Direita: Texto Clicável */}
-      <TouchableOpacity style={styles.right} onPress={() => console.log('Editar clicado')}>
+      <TouchableOpacity style={styles.right} onPress={handleEditarPress}>
         <Text style={styles.editText}>Editar</Text>
       </TouchableOpacity>
+
+      <CustomPopup
+        isVisible={isPopupVisible}
+        onClose={closePopup}
+        title="Editar Horário"
+        time="10:00"
+        img1={require('../imgs/verifica.png')}
+        img2={require('../imgs/excluir.png')}
+      />
     </View>
   );
 };
