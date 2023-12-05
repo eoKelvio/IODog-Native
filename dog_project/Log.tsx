@@ -4,9 +4,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import CustomButton from './components/CustomButton';
 import Container from './components/Container';
 import Board from './components/Board';
-import { Text, View } from 'react-native';
-
+import { Text, ScrollView, StyleSheet } from 'react-native';
 import fetchLogs from './scripts/fecthLogs';
+import LogBox from './components/LogBox';
+import { FetchLogsProps } from './types/types';
 
 type RootStackParamList = {
   Index: undefined;
@@ -18,30 +19,31 @@ type LogProps = {
 };
 
 export default function Log({ navigation }: LogProps) {
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState<FetchLogsProps[]>([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchLogs(setLogs, setError);
+    fetchLogs(setLogs);
   }, []);
 
   return (
     <Container>
       <Board tittle='Relatórios'>
+      <ScrollView style={styles.scrollView}>
         {logs.length > 0 ? (
-          logs.map((log) => (
-            <View key={log.id}>
-              <Text>ID: {log.id}</Text>
-              <Text>Food Liberation: {log.food_liberation ? 'Yes' : 'No'}</Text>
-              <Text>Portions: {log.portions}</Text>
-              <Text>Food Level: {log.food_level}</Text>
-              <Text>Created At: {log.created_at}</Text>
-              {/* Renderize outros campos conforme necessário */}
-            </View>
-          ))
-        ) : (
-          <Text>Loading...</Text>
-        )}
+            logs.map((log) => (
+              <LogBox
+              id={log.id}
+              food_liberation={log.food_liberation}
+              portions={log.portions}
+              food_level={log.food_level}
+              created_at={log.created_at}
+              />
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )}
+      </ScrollView>
       </Board>
       <CustomButton
         title="Menu principal"
@@ -51,3 +53,10 @@ export default function Log({ navigation }: LogProps) {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    height: 4 * ( 100 + 16),
+    maxHeight: '100%'
+  },
+})

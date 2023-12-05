@@ -1,4 +1,4 @@
-﻿export default async function fetchLogs(setLogs, setError) {
+﻿export default async function fetchLogs(setLogs) {
     try {
       const response = await fetch("https://eokelvio.pythonanywhere.com/log/");
   
@@ -14,11 +14,7 @@
           }));
           
           setLogs(extractedLogs);
-        } else {
-          setError(true);
         }
-      } else {
-        setError(true);
       }
     } catch (error) {
       console.error(error);

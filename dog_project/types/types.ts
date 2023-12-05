@@ -15,3 +15,11 @@ export interface CustomButtonProps extends TouchableOpacityProps {
     title: string,
     img_source?: ImageSourcePropType;
   }
+
+  export interface FetchLogsProps {
+    id: number;
+    food_liberation: boolean;
+    portions: number;
+    food_level: string;
+    created_at: string;
+  }
