@@ -1,11 +1,7 @@
-// CustomButton.tsx
 import React from 'react';
 import { TouchableOpacity, Text, TouchableOpacityProps, StyleSheet, ImageSourcePropType, Image } from 'react-native';
 
-interface CustomButtonProps extends TouchableOpacityProps {
-  title: string,
-  img_source?: ImageSourcePropType;
-}
+
 
 export default function CustomButton({ title,img_source, ...restProps }: CustomButtonProps) {
 
