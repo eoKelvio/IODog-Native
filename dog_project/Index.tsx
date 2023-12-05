@@ -11,6 +11,7 @@ import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 
 import fetchHours from "./scripts/fecthHours";
+import { getNumberFromAPI } from "./scripts/fecthPortion";
 
 type RootStackParamList = {
   Index: undefined;
@@ -24,9 +25,23 @@ type IndexProps = {
 export default function Index({ navigation }: IndexProps) {
   const [hours, setHours] = useState([]);
   const [error, setError] = useState(false);
-
+  const [apiResponse, setApiResponse] = useState("");
+  
   useEffect(() => {
+    // Fetch hours data
     fetchHours(setHours, setError);
+
+    // Fetch number data from the API
+    const fetchNumberFromAPI = async () => {
+      try {
+        const numberFromAPI = await getNumberFromAPI();
+        setApiResponse(`Número da API: ${numberFromAPI}`);
+      } catch (error:any) {
+        setApiResponse(`Erro ao obter número da API: ${error.message}`);
+      }
+    };
+
+    fetchNumberFromAPI();
   }, []);
 
   return (
@@ -45,7 +60,7 @@ export default function Index({ navigation }: IndexProps) {
         </HoursBox>
 
 
-        <PortionButton></PortionButton>
+        <PortionButton apiResponse={apiResponse}></PortionButton>
 
         <FoodLevel></FoodLevel>
       </Board>
