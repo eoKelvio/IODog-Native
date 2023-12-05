@@ -1,14 +1,14 @@
-﻿// PortionButton.tsx
-import React, { ReactNode, useState } from 'react';
+﻿import React, { ReactNode, useState } from 'react';
 import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import PopUpPortion from './PopUpPortion';
 
 interface BoxProps extends TouchableOpacityProps {
   children?: ReactNode;
   image?: any;
+  real_portion: any;
 }
 
-export default function PortionButton({ children, image, ...restProps }: BoxProps) {
+export default function PortionButton({ children, image, real_portion, ...restProps }: BoxProps) {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
 
   const openPopUp = () => {
@@ -42,7 +42,7 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
               <Text style={styles.defaultText}>Porções</Text>
             </View>
             <View style={styles.rows}>
-              <Text style={styles.altText}>2</Text>
+              <Text style={styles.altText}>{real_portion}</Text>
               <Text style={styles.defaultText}>Und</Text>
             </View>
           </View>
@@ -61,6 +61,7 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   imagen: {
