@@ -34,6 +34,7 @@ export default function Log({ navigation }: LogProps) {
         {logs.length > 0 ? (
             logs.map((log) => (
               <LogBox
+              key={log.id}
               id={log.id}
               food_liberation={log.food_liberation}
               portions={log.portions}
