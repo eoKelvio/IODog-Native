@@ -25,7 +25,8 @@ export default function HoursBox({ children, direction }: BoxProps) {
   };
 
   return (
-    <ScrollView style={boxStyle}>
+    <ScrollView style={boxStyle} showsVerticalScrollIndicator={false}
+    showsHorizontalScrollIndicator={false}>
       <View style={contentContainerStyle}>
         <Text style={styles.defaultText}>Horários programados</Text>
         <View style={styles.gap}>

@@ -16,9 +16,9 @@ export default function LogBox({id, created_at, portions, food_liberation, food_
   // Simulação de dados da API
   return (
         <View key={id} style={styles.card}>
-          <Text>Horário de Liberação: {created_at}</Text>
+          <Text>Horário: {created_at}</Text>
           <Text>Quantidade de Porções: {portions}</Text>
-          <Text>Nível de Comida: {food_level}</Text>
+          <Text>Nível de Comida: {food_level}%</Text>
           <View style={styles.checkboxContainer}>
             <Text>Liberado:</Text>
             <View style={styles.checkbox}>
@@ -40,11 +40,10 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
   },
   checkbox: {
-    width: 20,
-    height: 20,
+    width: 12,
+    height: 12,
     borderColor: '#000',
     borderWidth: 1,
     marginLeft: 8,
@@ -52,8 +51,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   checkedBox: {
-    width: 14,
-    height: 14,
+    width: 8,
+    height: 8,
     backgroundColor: '#00695c',
     },
 });
