@@ -11,6 +11,7 @@ import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 
 import fetchHours from "./scripts/fecthHours";
+import { getNumberFromAPI } from "./scripts/getPortion";
 
 type RootStackParamList = {
   Index: undefined;
@@ -29,10 +30,21 @@ interface Hour {
 
 export default function Index({ navigation }: IndexProps) {
   const [hours, setHours] = useState<Hour[]>([]);
-  const [error, setError] = useState(false);
+  const [portion, setPortion] = useState<number | null>(null); // Estado para armazenar o valor da porção
 
   useEffect(() => {
-    fetchHours(setHours, setError);
+    async function fetchData() {
+      try {
+        const portionFromAPI = await getNumberFromAPI();
+        setPortion(portionFromAPI);
+      } catch (error) {
+        // Trate o erro aqui, se necessário
+        console.error(error);
+      }
+    }
+
+    fetchData();
+    fetchHours(setHours);
   }, []);
 
   return (
@@ -50,7 +62,7 @@ export default function Index({ navigation }: IndexProps) {
           )}
         </HoursBox>
 
-        <PortionButton></PortionButton>
+        <PortionButton real_portion={portion}></PortionButton>
 
         <FoodLevel></FoodLevel>
       </Board>
