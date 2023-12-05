@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
   tittle: {
     fontSize: 38,
     fontWeight: "500",
+    color: '#1E86E6'
   },
 });

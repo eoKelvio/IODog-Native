@@ -29,7 +29,8 @@ export default function Log({ navigation }: LogProps) {
   return (
     <Container>
       <Board tittle='Relatórios'>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}>
         {logs.length > 0 ? (
             logs.map((log) => (
               <LogBox
@@ -46,7 +47,7 @@ export default function Log({ navigation }: LogProps) {
       </ScrollView>
       </Board>
       <CustomButton
-        title="Menu principal"
+        title="Menu Principal"
         img_source={require('./imgs/relogio.png')}
         onPress={() => navigation.navigate("Index")}
       ></CustomButton>
@@ -56,7 +57,7 @@ export default function Log({ navigation }: LogProps) {
 
 const styles = StyleSheet.create({
   scrollView: {
-    height: 4 * ( 100 + 16),
+    height: 4.4 * ( 100 + 16),
     maxHeight: '100%'
   },
 })
