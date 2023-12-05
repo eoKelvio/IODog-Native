@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import PopUpPortion from './PopUpPortion';
 
-import { getNumberFromAPI, sendToAPI } from '../scripts/fecthPortion';
+import { getNumberFromAPI, sendToAPI } from '../scripts/postPortion';
 
 interface PortionButtonProps extends TouchableOpacityProps {
   children?: ReactNode;

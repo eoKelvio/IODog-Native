@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
 } from 'react-native';
-import { sendToAPI } from '../scripts/fecthPortion';
+import { sendToAPI } from '../scripts/postPortion';
 
 interface PopUpPortionProps {
   isVisible: boolean;
