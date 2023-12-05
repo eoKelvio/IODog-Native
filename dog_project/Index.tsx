@@ -11,7 +11,7 @@ import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 
 import fetchHours from "./scripts/fecthHours";
-import { getNumberFromAPI } from "./scripts/fecthPortion";
+import { getNumberFromAPI } from "./scripts/getPortion";
 
 type RootStackParamList = {
   Index: undefined;
@@ -22,45 +22,47 @@ type IndexProps = {
   navigation: StackNavigationProp<RootStackParamList, "Index">;
 };
 
+interface Hour {
+  id: number; // Replace 'number' with the correct type of your ID
+  times: string; // Replace 'string' with the correct type of your times
+  // Add other properties if present
+}
+
 export default function Index({ navigation }: IndexProps) {
-  const [hours, setHours] = useState([]);
-  const [error, setError] = useState(false);
-  const [apiResponse, setApiResponse] = useState("");
-  
+  const [hours, setHours] = useState<Hour[]>([]);
+  const [portion, setPortion] = useState<number | null>(null); // Estado para armazenar o valor da porção
+
   useEffect(() => {
-    // Fetch hours data
-    fetchHours(setHours, setError);
-
-    // Fetch number data from the API
-    const fetchNumberFromAPI = async () => {
+    async function fetchData() {
       try {
-        const numberFromAPI = await getNumberFromAPI();
-        setApiResponse(`Número da API: ${numberFromAPI}`);
-      } catch (error:any) {
-        setApiResponse(`Erro ao obter número da API: ${error.message}`);
+        const portionFromAPI = await getNumberFromAPI();
+        setPortion(portionFromAPI);
+      } catch (error) {
+        // Trate o erro aqui, se necessário
+        console.error(error);
       }
-    };
+    }
 
-    fetchNumberFromAPI();
+    fetchData();
+    fetchHours(setHours);
   }, []);
 
   return (
     <Container>
-
       <Board tittle="IODog">
-
         <HoursBox direction="column">
-        {hours.length > 0 ? (
-          hours.map((hours) => (
-            <Times>{hours.times}</Times>
-          ))
-        ) : (
-          <Text>Loading...</Text>
-        )}
+          {hours.length > 0 ? (
+            hours.map((hour) => (
+              <Times key={hour.id} id={hour.id}>
+                {hour.times}
+              </Times>
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </HoursBox>
 
-
-        <PortionButton apiResponse={apiResponse}></PortionButton>
+        <PortionButton real_portion={portion}></PortionButton>
 
         <FoodLevel></FoodLevel>
       </Board>

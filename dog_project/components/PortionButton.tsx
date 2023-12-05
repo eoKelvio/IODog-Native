@@ -1,13 +1,5 @@
-﻿import React, { ReactNode, useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  Image,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import React, { ReactNode, useState } from 'react';
+import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import PopUpPortion from './PopUpPortion';
 
 import { getNumberFromAPI, sendToAPI } from '../scripts/fecthPortion';
@@ -15,14 +7,10 @@ import { getNumberFromAPI, sendToAPI } from '../scripts/fecthPortion';
 interface PortionButtonProps extends TouchableOpacityProps {
   children?: ReactNode;
   image?: any;
-  apiResponse: string; // Add apiResponse to the props
+  real_portion: any;
 }
 
-export default function PortionButton({
-  children,
-  image,
-  ...restProps
-}: PortionButtonProps) {
+export default function PortionButton({ children, image, real_portion, ...restProps }: BoxProps) {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
   const [apiResponse, setApiResponse] = useState('');
 
@@ -82,7 +70,7 @@ export default function PortionButton({
               <Text style={styles.defaultText}>Porções</Text>
             </View>
             <View style={styles.rows}>
-              <Text style={styles.altText}>{apiResponse}</Text>
+              <Text style={styles.altText}>{real_portion}</Text>
               <Text style={styles.defaultText}>Und</Text>
             </View>
           </View>
@@ -102,6 +90,7 @@ export default function PortionButton({
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   imagen: {
