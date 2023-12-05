@@ -21,8 +21,14 @@ type IndexProps = {
   navigation: StackNavigationProp<RootStackParamList, "Index">;
 };
 
+interface Hour {
+  id: number; // Replace 'number' with the correct type of your ID
+  times: string; // Replace 'string' with the correct type of your times
+  // Add other properties if present
+}
+
 export default function Index({ navigation }: IndexProps) {
-  const [hours, setHours] = useState([]);
+  const [hours, setHours] = useState<Hour[]>([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -31,19 +37,18 @@ export default function Index({ navigation }: IndexProps) {
 
   return (
     <Container>
-
       <Board tittle="IODog">
-
         <HoursBox direction="column">
-        {hours.length > 0 ? (
-          hours.map((hours) => (
-            <Times>{hours.times}</Times>
-          ))
-        ) : (
-          <Text>Loading...</Text>
-        )}
+          {hours.length > 0 ? (
+            hours.map((hour) => (
+              <Times key={hour.id} id={hour.id}>
+                {hour.times}
+              </Times>
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </HoursBox>
-
 
         <PortionButton></PortionButton>
 
