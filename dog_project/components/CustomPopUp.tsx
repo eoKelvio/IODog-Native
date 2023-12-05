@@ -3,12 +3,14 @@ import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } fro
 import { isValid, parse } from 'date-fns';
 
 interface CustomPopupProps {
-  isVisible: boolean;
-  onClose: () => void;
-  title: string;
-  initialTime: string;
-  img1: any;
-  img2: any;
+  isVisible: boolean,
+  onClose: () => void,
+  onSend: (newTime: string) => void,
+  title: string,
+  initialTime?: string,
+  img1: any,
+  img2: any,
+  time: any;
 }
 
 const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialTime, img1, img2 }) => {

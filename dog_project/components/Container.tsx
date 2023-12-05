@@ -1,9 +1,6 @@
 ﻿import React, { ReactNode } from "react";
 import { View, Text, StyleSheet } from "react-native";
-
-interface BoxProps {
-  children?: ReactNode;
-}
+import { BoxProps } from "../types/types";
 
 export default function Container({ children }: BoxProps) {
   return (
