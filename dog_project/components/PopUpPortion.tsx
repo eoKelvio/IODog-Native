@@ -1,5 +1,14 @@
 import React, { FC, useState } from 'react';
-import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Modal,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from 'react-native';
+import { sendToAPI } from '../scripts/fecthPortion';
 
 interface PopUpPortionProps {
   isVisible: boolean;
@@ -8,17 +17,40 @@ interface PopUpPortionProps {
   initialValue: string;
   img1: any;
   img2: any;
+  handleSendDataToAPI: (data: any) => Promise<void>; // Add the new prop
 }
 
-const PopUpPortion: FC<PopUpPortionProps> = ({ isVisible, onClose, title, initialValue, img1, img2 }) => {
-  const [value, setValue] = useState(initialValue);
+const PopUpPortion: FC<PopUpPortionProps> = ({
+  isVisible,
+  onClose,
+  title,
+  initialValue,
+  img1,
+  img2,
+  handleSendDataToAPI, // Add the new prop
+}) => {
+  const [number, setNumber] = useState('');
+  const [apiResponse, setApiResponse] = useState('');
+
+  const handleSendNumberAndCloseModal = async () => {
+    try {
+      const data = {
+        portion: number,
+      };
+
+      const response = await sendToAPI(data);
+
+      setApiResponse(`Resposta da API: ${JSON.stringify(response)}`);
+
+      onClose();
+    } catch (error:any) {
+      setApiResponse(`Erro ao chamar a API: ${error.message}`);
+    }
+  };
 
   const handleValueChange = (newValue: string) => {
-    // Removendo caracteres não numéricos usando regex
     const numericValue = newValue.replace(/[^0-9]/g, '');
-
-    // Atualizando o estado com o valor numérico
-    setValue(numericValue);
+    setNumber(numericValue);
   };
 
   return (
@@ -31,18 +63,15 @@ const PopUpPortion: FC<PopUpPortionProps> = ({ isVisible, onClose, title, initia
       <View style={styles.popupContainer}>
         <View style={styles.popupContent}>
           <Text style={styles.title}>{title}</Text>
-
-          {/* Adicionando o campo de entrada de texto para o valor inteiro */}
           <TextInput
             style={styles.valueContainer}
-            value={value}
+            value={number}
             onChangeText={handleValueChange}
             placeholder="Digite o valor inteiro"
-            keyboardType="numeric" // Configurando para aceitar apenas números
+            keyboardType="numeric"
           />
-
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={handleSendNumberAndCloseModal}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onClose}>

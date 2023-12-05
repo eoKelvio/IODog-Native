@@ -1,15 +1,30 @@
-﻿// PortionButton.tsx
-import React, { ReactNode, useState } from 'react';
-import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+﻿import React, { ReactNode, useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  Image,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 import PopUpPortion from './PopUpPortion';
 
-interface BoxProps extends TouchableOpacityProps {
+import { getNumberFromAPI, sendToAPI } from '../scripts/fecthPortion';
+
+interface PortionButtonProps extends TouchableOpacityProps {
   children?: ReactNode;
   image?: any;
+  apiResponse: string; // Add apiResponse to the props
 }
 
-export default function PortionButton({ children, image, ...restProps }: BoxProps) {
+export default function PortionButton({
+  children,
+  image,
+  ...restProps
+}: PortionButtonProps) {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
+  const [apiResponse, setApiResponse] = useState('');
 
   const openPopUp = () => {
     setPopUpVisible(true);
@@ -30,10 +45,35 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
     flexDirection: 'row',
   };
 
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+      try {
+        const dataFromAPI = await getNumberFromAPI();
+        // Set the result of the GET request to the state
+        setApiResponse(`Número da API: ${dataFromAPI}`);
+      } catch (error:any) {
+        setApiResponse(`Erro ao obter número da API: ${error.message}`);
+      }
+    };
+
+    fetchDataFromAPI();
+  }, []);
+
+  const handleSendDataToAPI = async (data: any) => {
+    try {
+      await sendToAPI(data);
+      // After successful POST request, update the state with the result of the subsequent GET request
+      const newDataFromAPI = await getNumberFromAPI();
+      setApiResponse(`Número da API: ${newDataFromAPI}`);
+    } catch (error:any) {
+      console.error('Erro ao enviar dados para a API:', error.message);
+    }
+  };
+
   return (
     <View>
       <TouchableOpacity onPress={openPopUp}>
-        <View style={[boxStyle]}>
+        <View style={boxStyle}>
           <View>
             <Image style={styles.imagen} source={require('../imgs/racao.png')} />
           </View>
@@ -42,7 +82,7 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
               <Text style={styles.defaultText}>Porções</Text>
             </View>
             <View style={styles.rows}>
-              <Text style={styles.altText}>2</Text>
+              <Text style={styles.altText}>{apiResponse}</Text>
               <Text style={styles.defaultText}>Und</Text>
             </View>
           </View>
@@ -57,6 +97,7 @@ export default function PortionButton({ children, image, ...restProps }: BoxProp
         initialValue="0"
         img1={require('../imgs/verifica.png')}
         img2={require('../imgs/cancelar.png')}
+        handleSendDataToAPI={handleSendDataToAPI} // Adiciona a função de envio para o PopUp
       />
     </View>
   );
@@ -71,8 +112,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: '500',
-    textAlign: "center",
-    textAlignVertical: "bottom"
+    textAlign: 'center',
+    textAlignVertical: 'bottom',
   },
   altText: {
     color: 'white',
@@ -80,19 +121,19 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   divisor: {
-    display: "flex",
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: "column",
-    width: "50%",
-    gap: 10
+    flexDirection: 'column',
+    width: '50%',
+    gap: 10,
   },
   rows: {
-    display: "flex",
-    flexDirection: "row",
-    alignContent: "flex-end",
-    justifyContent: "center",
-    width: "100%",
-    gap: 10
-  }
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'flex-end',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 10,
+  },
 });
