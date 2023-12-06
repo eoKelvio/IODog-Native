@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
 import pacthHour from '../scripts/patchHour';
-import { Times } from './Times';
+import deleteHour from '../scripts/deleteHour';
 
 interface CustomPopupProps {
   isVisible: boolean;
@@ -45,6 +45,11 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
   const patch = () => {
     pacthHour(id, time)
   }
+
+  const deleteHourLocally = () => {
+    deleteHour(id);
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -69,7 +74,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
             <TouchableOpacity onPress={() => { onClose(); patch(); }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={() => { onClose(); deleteHourLocally(); }}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>
