@@ -1,4 +1,3 @@
-// Index.tsx
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -11,6 +10,8 @@ import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 
 import fetchHours from "./scripts/fecthHours";
+import { getNumberFromAPI } from "./scripts/getPortion";
+import getFoodLevel from "./scripts/getFoodLevel"
 
 type RootStackParamList = {
   Index: undefined;
@@ -21,33 +22,55 @@ type IndexProps = {
   navigation: StackNavigationProp<RootStackParamList, "Index">;
 };
 
+interface Hour {
+  id: number;
+  times: string;
+}
+
 export default function Index({ navigation }: IndexProps) {
-  const [hours, setHours] = useState([]);
-  const [error, setError] = useState(false);
+  const [hours, setHours] = useState<Hour[]>([]);
+  const [portion, setPortion] = useState<number | null>(null);
+  const [foodLevel, setFoodLevel] = useState<string | null>(null); // Estado para armazenar o valor do food_level
 
   useEffect(() => {
-    fetchHours(setHours, setError);
+    async function fetchData() {
+      try {
+        const portionFromAPI = await getNumberFromAPI();
+        setPortion(portionFromAPI);
+
+        const foodLevelFromAPI = await getFoodLevel();
+        setFoodLevel(foodLevelFromAPI);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+    fetchHours(setHours);
   }, []);
 
   return (
     <Container>
-
       <Board tittle="IODog">
-
         <HoursBox direction="column">
-        {hours.length > 0 ? (
-          hours.map((hours) => (
-            <Times>{hours.times}</Times>
-          ))
-        ) : (
-          <Text>Loading...</Text>
-        )}
+          {hours.length > 0 ? (
+            hours.map((hour) => (
+              <Times key={hour.id} id={hour.id}>
+                {hour.times}
+              </Times>
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </HoursBox>
 
+        <PortionButton real_portion={portion}></PortionButton>
 
-        <PortionButton></PortionButton>
-
-        <FoodLevel></FoodLevel>
+        {foodLevel !== null ? (
+          <FoodLevel food_level={foodLevel}></FoodLevel>
+        ) : (
+          <Text>Loading food level...</Text>
+        )}
       </Board>
 
       <CustomButton

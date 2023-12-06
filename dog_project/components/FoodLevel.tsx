@@ -4,10 +4,11 @@ import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOp
 
 interface BoxProps extends TouchableOpacityProps {
     children?: ReactNode;
-    image?: any; // Alteração para a propriedade image aceitar a referência direta da imagem
+    image?: any;
+    food_level: string
   }
 
-export default function FoodLevel({ children, image, ...restProps }: BoxProps) {
+export default function FoodLevel({ children, image, food_level, ...restProps }: BoxProps) {
   const boxStyle: ViewStyle = {
     backgroundColor: '#1E86E6',
     width: '100%',
@@ -33,7 +34,7 @@ export default function FoodLevel({ children, image, ...restProps }: BoxProps) {
           </View>
 
           <View style={styles.rows}>
-            <Text style={styles.altText}>2</Text>
+            <Text style={styles.altText}>{food_level}</Text>
             <Text style={styles.altText}>%</Text>
           </View>
 

@@ -1,10 +1,8 @@
 ﻿import React, { ReactNode } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { BoxProps } from "../types/types";
 
-interface BoxProps {
-  children?: ReactNode,
-  tittle?: string;
-}
+
 
 export default function Board({ children, tittle }: BoxProps) {
   return (
@@ -39,5 +37,6 @@ const styles = StyleSheet.create({
   tittle: {
     fontSize: 38,
     fontWeight: "500",
+    color: '#1E86E6'
   },
 });

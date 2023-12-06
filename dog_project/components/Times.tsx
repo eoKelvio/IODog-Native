@@ -1,12 +1,11 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import CustomPopup from './CustomPopUp';
+import {TimesProps} from '../types/types'
 
-interface TimesProps {
-  children?: ReactNode;
-}
+import pacthHour from '../scripts/patchHour';
 
-const Times = ({ children }: TimesProps) => {
+const Times = ({ children, id }: TimesProps) => {
   const imagemUrl = require('../imgs/relogio.png');
   const [isPopupVisible, setPopupVisible] = useState(false);
 
@@ -16,6 +15,13 @@ const Times = ({ children }: TimesProps) => {
 
   const closePopup = () => {
     setPopupVisible(false);
+  };
+
+  const handleUpdateHour = (newTime: string) => {
+    // Chama a função de atualização com o ID e o novo horário
+    pacthHour(id, newTime);
+    // Fecha o popup após a ação ser realizada
+    closePopup();
   };
 
   return (
@@ -44,6 +50,7 @@ const Times = ({ children }: TimesProps) => {
       <CustomPopup
         isVisible={isPopupVisible}
         onClose={closePopup}
+        onSend={handleUpdateHour}
         title="Editar Horário"
         time="10:00"
         img1={require('../imgs/verifica.png')}
