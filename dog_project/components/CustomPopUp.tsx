@@ -1,24 +1,29 @@
 import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
+import pacthHour from '../scripts/patchHour';
+import { Times } from './Times';
 
 interface CustomPopupProps {
-  isVisible: boolean,
-  onClose: () => void,
-  onSend: (newTime: string) => void,
-  title: string,
-  initialTime?: string,
-  img1: any,
-  img2: any,
+  isVisible: boolean;
+  onClose: () => void;
+  onSend: (newTime: string) => void;
+  title: string;
+  initialTime?: string;
+  img1: any;
+  img2: any;
   time: any;
+  id: number; // Adicionando o id como uma propriedade
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialTime, img1, img2 }) => {
+const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialTime, img1, img2, id }) => {
   const [time, setTime] = useState(initialTime);
+
 
   const handleTimeChange = (newTime: string) => {
     // Removendo caracteres não numéricos usando regex
     const numericValue = newTime.replace(/[^0-9]/g, '');
+    setTime(newTime)
 
     // Formatando a entrada como hora (HH:mm)
     const formattedTime = numericValue.replace(/(\d{0,2})(\d{0,2})/, (match, p1, p2) => {
@@ -37,6 +42,9 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
     }
   };
 
+  const patch = () => {
+    pacthHour(id, time)
+  }
   return (
     <Modal
       animationType="slide"
@@ -58,7 +66,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
           />
 
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={() => { onClose(); patch(); }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onClose}>
