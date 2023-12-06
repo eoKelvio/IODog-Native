@@ -55,6 +55,7 @@ const Times = ({ children, id }: TimesProps) => {
         time="10:00"
         img1={require('../imgs/verifica.png')}
         img2={require('../imgs/excluir.png')}
+        id={id}
       />
     </View>
   );
