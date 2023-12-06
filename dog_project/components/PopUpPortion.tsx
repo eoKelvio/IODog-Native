@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import {sendToAPI} from '../scripts/postPortion'
 
 interface PopUpPortionProps {
   isVisible: boolean;
@@ -19,6 +20,9 @@ const PopUpPortion: FC<PopUpPortionProps> = ({ isVisible, onClose, title, initia
 
     // Atualizando o estado com o valor numérico
     setValue(numericValue);
+    sendToAPI(numericValue)
+
+
   };
 
   return (

@@ -64,7 +64,12 @@ export default function Index({ navigation }: IndexProps) {
           )}
         </HoursBox>
 
-        <PortionButton real_portion={portion}></PortionButton>
+        
+        {portion !== null ? (
+          <PortionButton real_portion={portion}></PortionButton>
+        ) : (
+          <Text>Loading food level...</Text>
+        )}
 
         {foodLevel !== null ? (
           <FoodLevel food_level={foodLevel}></FoodLevel>
