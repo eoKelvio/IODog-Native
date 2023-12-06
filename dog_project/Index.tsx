@@ -1,4 +1,3 @@
-// Index.tsx
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -12,6 +11,7 @@ import FoodLevel from "./components/FoodLevel";
 
 import fetchHours from "./scripts/fecthHours";
 import { getNumberFromAPI } from "./scripts/getPortion";
+import getFoodLevel from "./scripts/getFoodLevel"
 
 type RootStackParamList = {
   Index: undefined;
@@ -23,22 +23,24 @@ type IndexProps = {
 };
 
 interface Hour {
-  id: number; // Replace 'number' with the correct type of your ID
-  times: string; // Replace 'string' with the correct type of your times
-  // Add other properties if present
+  id: number;
+  times: string;
 }
 
 export default function Index({ navigation }: IndexProps) {
   const [hours, setHours] = useState<Hour[]>([]);
-  const [portion, setPortion] = useState<number | null>(null); // Estado para armazenar o valor da porção
+  const [portion, setPortion] = useState<number | null>(null);
+  const [foodLevel, setFoodLevel] = useState<string | null>(null); // Estado para armazenar o valor do food_level
 
   useEffect(() => {
     async function fetchData() {
       try {
         const portionFromAPI = await getNumberFromAPI();
         setPortion(portionFromAPI);
+
+        const foodLevelFromAPI = await getFoodLevel();
+        setFoodLevel(foodLevelFromAPI);
       } catch (error) {
-        // Trate o erro aqui, se necessário
         console.error(error);
       }
     }
@@ -64,7 +66,11 @@ export default function Index({ navigation }: IndexProps) {
 
         <PortionButton real_portion={portion}></PortionButton>
 
-        <FoodLevel></FoodLevel>
+        {foodLevel !== null ? (
+          <FoodLevel food_level={foodLevel}></FoodLevel>
+        ) : (
+          <Text>Loading food level...</Text>
+        )}
       </Board>
 
       <CustomButton
