@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import CustomPopup from './CustomPopUp';
+import CreatePopUp from './CreatePopUp';
 
-const BotaoEditar = () => {
+import { postHour } from '../API/Hours'
+
+const CreateHour = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const handlePress = () => {
@@ -13,6 +15,15 @@ const BotaoEditar = () => {
     setPopupVisible(false);
   };
 
+  const postToApi = async (newTime: string) => {
+    try {
+      await postHour(newTime);
+      console.log('Dados enviados para a API com sucesso');
+    } catch (error) {
+      console.error('Erro ao enviar dados para a API:', error);
+    }
+  };
+
   return (
     <View>
       <TouchableOpacity onPress={handlePress}>
@@ -21,9 +32,10 @@ const BotaoEditar = () => {
         </View>
       </TouchableOpacity>
 
-      <CustomPopup
+      <CreatePopUp
         isVisible={isPopupVisible}
         onClose={closePopup}
+        onSend={postToApi}
         title="Definir Horário"
         time="00:00"
         img1={require('../imgs/verifica.png')}
@@ -49,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BotaoEditar;
+export default CreateHour;
