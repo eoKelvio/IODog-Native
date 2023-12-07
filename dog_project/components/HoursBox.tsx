@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ViewStyle, ScrollView } from "react-native";
 import { Times } from "../components(old)/Times";
-import BotaoEditar from "../components(old)/CreateHour";
+import CreateHour from "../components(old)/CreateHour";
 
 import { fetchHours } from "../API/Hours";
 
@@ -60,7 +60,7 @@ export default function HoursBox({ direction }: BoxProps) {
             </Times>
           ))}
         </View>
-        <BotaoEditar />
+        <CreateHour />
       </View>
     </ScrollView>
   );

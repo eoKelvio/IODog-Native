@@ -52,8 +52,8 @@ export async function patchHour(id, newTime) {
   }
 }
 
-export async function postHour(id, newTime) {
-  const link = `https://eokelvio.pythonanywhere.com/hours/${id}/`;
+export async function postHour(newTime) {
+  const link = `https://eokelvio.pythonanywhere.com/hours/`;
   try {
     const response = await fetch(link, {
       method: "POST",
@@ -64,8 +64,8 @@ export async function postHour(id, newTime) {
     });
 
     if (response.ok) {
-      const updatedHours = await response.json();
-      console.log("Horário criado:", updatedHours);
+      const createHours = await response.json();
+      console.log("Horário criado:", createHours);
     } else {
       console.error("Erro ao criar o horário:", response.statusText);
     }

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
 
-import { patchHour, deleteHour } from '../API/Hours';
+import { patchHour, deleteHour, postHour } from '../API/Hours';
 
 interface CustomPopupProps {
   isVisible: boolean;
@@ -45,6 +45,11 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
   const patch = () => {
     patchHour(id, time)
   }
+
+  const post = () => {
+    postHour
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -66,7 +71,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
           />
 
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={() => { onClose(); patch(); }}>
+            <TouchableOpacity onPress={() => { onClose(); patch(); postHour; }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onClose}>

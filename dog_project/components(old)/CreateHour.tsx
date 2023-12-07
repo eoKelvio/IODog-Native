@@ -4,7 +4,7 @@ import CustomPopup from './CustomPopUp';
 
 import { postHour } from '../API/Hours'
 
-const BotaoEditar = (id:any) => {
+const CreateHour = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const handlePress = () => {
@@ -15,7 +15,7 @@ const BotaoEditar = (id:any) => {
     setPopupVisible(false);
   };
 
-  const postToApi = async (newTime: any) => {
+  const postToApi = async (newTime: string) => {
     try {
       await postHour(newTime);
       console.log('Dados enviados para a API com sucesso');
@@ -40,7 +40,6 @@ const BotaoEditar = (id:any) => {
         time="00:00"
         img1={require('../imgs/verifica.png')}
         img2={require('../imgs/cancelar.png')}
-        id={id}
       />
     </View>
   );
@@ -62,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BotaoEditar;
+export default CreateHour;
