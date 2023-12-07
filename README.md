@@ -31,6 +31,7 @@ Abra o aplicativo Expo Go no seu dispositivo móvel e escaneie o QR code exibido
 
 ## Estrutura
 
-Pastas:
+Componentes:
+- Board: o componente Board etá sendo utilizado para organizar os elementos `PortionButton` e `FoodLevel` na parte central da tela.
 
     
