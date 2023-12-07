@@ -20,7 +20,7 @@ export default function Index({ navigation }: IndexProps) {
       </Board>
 
       <NavigationButton
-        title="Relatorios"
+        title="Relatórios"
         img_source={require("./imgs/log.png")}
         onPress={() => navigation.navigate("Log")}
       />
