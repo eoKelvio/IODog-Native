@@ -6,18 +6,21 @@ import Container from "./components/Container";
 import Board from "./components/Board";
 import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
+import HoursBox from "./components/HoursBox";
 
 export default function Index({ navigation }: IndexProps) {
   return (
     <Container>
       <Board tittle="IODog" direction="column">
+        <HoursBox direction="column" />
+
         <PortionButton />
 
-        <FoodLevel food_level="80" />
+        <FoodLevel />
       </Board>
 
       <NavigationButton
-        title="Relatorios e informações"
+        title="Relatorios"
         img_source={require("./imgs/log.png")}
         onPress={() => navigation.navigate("Log")}
       />

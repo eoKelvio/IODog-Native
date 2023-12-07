@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
-import pacthHour from '../scripts/patchHour';
-import deleteHour from '../scripts/deleteHour';
+
+import { patchHour, deleteHour } from '../API/Hours';
 
 interface CustomPopupProps {
   isVisible: boolean;
-  onClose: () => void;
+  onDelete: () => void;
   onSend: (newTime: string) => void;
   title: string;
   initialTime?: string;
@@ -16,7 +16,7 @@ interface CustomPopupProps {
   id: number; // Adicionando o id como uma propriedade
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialTime, img1, img2, id }) => {
+const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onDelete, onSend, title, initialTime, img1, img2, id }) => {
   const [time, setTime] = useState(initialTime);
 
 
@@ -43,7 +43,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
   };
 
   const patch = () => {
-    pacthHour(id, time)
+    patchHour(id, time)
   }
 
   const deleteHourLocally = () => {
@@ -55,7 +55,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
       animationType="slide"
       transparent={true}
       visible={isVisible}
-      onRequestClose={onClose}
+      onRequestClose={onDelete}
     >
       <View style={styles.popupContainer}>
         <View style={styles.popupContent}>
@@ -71,10 +71,10 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, title, initialT
           />
 
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={() => { onClose(); patch(); }}>
+            <TouchableOpacity onPress={() => { onDelete(); patch(); }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { onClose(); deleteHourLocally(); }}>
+            <TouchableOpacity onPress={() => { onDelete(); deleteHourLocally(); }}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>

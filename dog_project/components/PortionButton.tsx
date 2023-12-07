@@ -77,7 +77,7 @@ export default function PortionButton() {
           onClose={closePopUp}
           onSend={fetchPortion}
           title="Definir Porção"
-          initialValue="0"
+          initialValue=""
           img1={require("../imgs/verifica.png")}
           img2={require("../imgs/cancelar.png")}
         />

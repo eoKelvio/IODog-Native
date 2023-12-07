@@ -4,7 +4,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 export interface TimesProps {
   children?: ReactNode;
-  id: number;
+  id: any;
 }
 
 

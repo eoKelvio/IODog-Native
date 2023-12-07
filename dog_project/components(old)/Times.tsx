@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
-import CustomPopup from './CustomPopUp';
-import {TimesProps} from '../types/types'
+import React, { useState } from "react";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import CustomPopup from "./CustomPopUp";
+import TimesProps from "../types/timeProps";
 
-import pacthHour from '../scripts/patchHour';
+import { patchHour } from "../API/Hours";
 
-const Times = ({ children, id }: TimesProps) => {
-  const imagemUrl = require('../imgs/relogio.png');
+const Times = ({ children, id, updateHours }: TimesProps) => {
+  const imagemUrl = require("../imgs/relogio.png");
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const handleEditarPress = () => {
@@ -19,7 +19,7 @@ const Times = ({ children, id }: TimesProps) => {
 
   const handleUpdateHour = (newTime: string) => {
     // Chama a função de atualização com o ID e o novo horário
-    pacthHour(id, newTime);
+    patchHour(id, newTime);
     // Fecha o popup após a ação ser realizada
     closePopup();
   };
@@ -49,12 +49,18 @@ const Times = ({ children, id }: TimesProps) => {
 
       <CustomPopup
         isVisible={isPopupVisible}
-        onClose={closePopup}
-        onSend={handleUpdateHour}
+        onDelete={() => {
+          closePopup();
+          updateHours();
+        }} // Chamando a função de atualização após a exclusão
+        onSend={(newTime: string) => {
+          handleUpdateHour(newTime);
+          updateHours();
+        }} // Chamando a função de atualização após a atualização
         title="Editar Horário"
         time="10:00"
-        img1={require('../imgs/verifica.png')}
-        img2={require('../imgs/excluir.png')}
+        img1={require("../imgs/verifica.png")}
+        img2={require("../imgs/excluir.png")}
         id={id}
       />
     </View>
@@ -64,36 +70,36 @@ const Times = ({ children, id }: TimesProps) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
     borderRadius: 30,
     padding: 8,
     paddingRight: 15,
     paddingLeft: 15,
     borderColor: "black",
-    width:"90%"
+    width: "90%",
   },
   left: {
     flex: 1,
   },
   middle: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   textMiddle: {
-    color: '#1E86E6',
-    fontWeight: '500'
+    color: "#1E86E6",
+    fontWeight: "500",
   },
   right: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   barraVertical: {
     marginHorizontal: 10,
-    color: '#1E86E6',
-    fontWeight: '500'
+    color: "#1E86E6",
+    fontWeight: "500",
   },
   image: {
     width: 20,
@@ -101,8 +107,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   editText: {
-    color: '#1E86E6',
-    fontWeight: '500'
+    color: "#1E86E6",
+    fontWeight: "500",
   },
 });
 
