@@ -5,7 +5,7 @@ import TimesProps from "../types/timeProps";
 
 import { patchHour } from "../API/Hours";
 
-const Times = ({ children, id, updateHours }: TimesProps) => {
+const Times = ({ children, id }: TimesProps) => {
   const imagemUrl = require("../imgs/relogio.png");
   const [isPopupVisible, setPopupVisible] = useState(false);
 
@@ -18,9 +18,7 @@ const Times = ({ children, id, updateHours }: TimesProps) => {
   };
 
   const handleUpdateHour = (newTime: string) => {
-    // Chama a função de atualização com o ID e o novo horário
     patchHour(id, newTime);
-    // Fecha o popup após a ação ser realizada
     closePopup();
   };
 
@@ -49,14 +47,8 @@ const Times = ({ children, id, updateHours }: TimesProps) => {
 
       <CustomPopup
         isVisible={isPopupVisible}
-        onDelete={() => {
-          closePopup();
-          updateHours();
-        }} // Chamando a função de atualização após a exclusão
-        onSend={(newTime: string) => {
-          handleUpdateHour(newTime);
-          updateHours();
-        }} // Chamando a função de atualização após a atualização
+        onClose={closePopup}
+        onSend={handleUpdateHour}
         title="Editar Horário"
         time="10:00"
         img1={require("../imgs/verifica.png")}

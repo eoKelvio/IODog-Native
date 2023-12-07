@@ -17,21 +17,6 @@ interface Hour {
 export default function HoursBox({ direction }: BoxProps) {
   const [hours, setHours] = useState<Hour[]>([]);
 
-
-  const update = () => {
-    useEffect(() => {
-      async function fetchAndSetHours() {
-        try {
-          const extractedHours = await fetchHours();
-          setHours(extractedHours);
-        } catch (error) {
-          console.error("Erro ao buscar os horários:", error);
-        }
-      }
-      fetchAndSetHours();
-    }, []);
-  }
-
   useEffect(() => {
     async function fetchAndSetHours() {
       try {
@@ -70,7 +55,7 @@ export default function HoursBox({ direction }: BoxProps) {
         <Text style={styles.defaultText}>Horários programados</Text>
         <View style={styles.gap}>
           {hours.map((hour) => (
-            <Times key={hour.id} id={hour.id} updateHours={update}>
+            <Times key={hour.id} id={hour.id}>
               {hour.times}
             </Times>
           ))}

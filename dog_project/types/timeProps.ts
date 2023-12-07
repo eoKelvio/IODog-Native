@@ -3,5 +3,4 @@
 export default interface TimesProps {
   children?: ReactNode;
   id: any;
-  updateHours: () => void;
 }

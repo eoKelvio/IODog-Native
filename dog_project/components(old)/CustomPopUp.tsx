@@ -6,7 +6,7 @@ import { patchHour, deleteHour } from '../API/Hours';
 
 interface CustomPopupProps {
   isVisible: boolean;
-  onDelete: () => void;
+  onClose: () => void;
   onSend: (newTime: string) => void;
   title: string;
   initialTime?: string;
@@ -16,7 +16,7 @@ interface CustomPopupProps {
   id: number; // Adicionando o id como uma propriedade
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onDelete, onSend, title, initialTime, img1, img2, id }) => {
+const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, initialTime, img1, img2, id }) => {
   const [time, setTime] = useState(initialTime);
 
 
@@ -45,17 +45,12 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onDelete, onSend, title,
   const patch = () => {
     patchHour(id, time)
   }
-
-  const deleteHourLocally = () => {
-    deleteHour(id);
-  };
-
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={isVisible}
-      onRequestClose={onDelete}
+      onRequestClose={onClose}
     >
       <View style={styles.popupContainer}>
         <View style={styles.popupContent}>
@@ -71,10 +66,10 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onDelete, onSend, title,
           />
 
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={() => { onDelete(); patch(); }}>
+            <TouchableOpacity onPress={() => { onClose(); patch(); }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { onDelete(); deleteHourLocally(); }}>
+            <TouchableOpacity onPress={onClose}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>
