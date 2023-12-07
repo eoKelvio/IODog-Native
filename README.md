@@ -35,5 +35,5 @@ Componentes:
 - `Board`: o componente Board etá sendo utilizado para organizar os elementos `PortionButton` e `FoodLevel` na parte central da tela.
 - `PortionButton`: o PortionButton foi criado para que consiguamos mostrar e atualizar a quantidade de porções de ração que deverá ser liberada. Ao clicar no PortionButton um popUp abrirá para fazer a alteração. Esse componente realiza uma requisição (GET) para a API para que possa mostrar o número de porções sempre atualizado.
 - `portionPopUp`: o portionPopUp assim que aberto, permite que o número de porções seja alterado. Esse componente fas uma requisição (POST) para a API, assim salvando o número de porções desejado.
-
-    
+- `FoodLevel`: o FoodLevel é o componete que nos mostra a quantidade de ração existente no estoque do dispenser de ração. Esse componente faz uma requisição (GET) para a API para poder manter os números atualizados.
+- 
