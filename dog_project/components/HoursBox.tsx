@@ -22,11 +22,17 @@ export default function HoursBox({ direction }: BoxProps) {
       try {
         const extractedHours = await fetchHours();
         setHours(extractedHours);
+        console.log("Horários atualizados:", extractedHours);
       } catch (error) {
         console.error("Erro ao buscar os horários:", error);
       }
     }
+
     fetchAndSetHours();
+
+    const intervalId = setInterval(fetchAndSetHours, 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const boxStyle: ViewStyle = {
