@@ -1,22 +1,30 @@
-﻿import React, { FC, useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { PopUpProps } from '../types/popUpProps';
+import { putPortion } from '../API/portion';
 
-import {sendToAPI} from '../scripts/postPortion'
-
-const PopUpPortion: FC<PopUpProps> = ({ isVisible, onClose, title, initialValue, img1, img2 }) => {
+export default function PortionPopUp({ isVisible, onClose, onSend, title, initialValue, img1, img2 }: PopUpProps) {
   const [value, setValue] = useState(initialValue);
 
-  const handleValueChange = (newValue: string) => {
-    // Removendo caracteres não numéricos usando regex
+  function handleValueChange(newValue: string) {
     const numericValue = newValue.replace(/[^0-9]/g, '');
-
-    // Atualizando o estado com o valor numérico
     setValue(numericValue);
-    sendToAPI(numericValue)
+  }
 
+  function handleSend() {
+    // Chamando a função putPortion com o valor atual
+    putPortion(value)
+        .then(() => {
+            // Após a conclusão de putPortion
+            onClose();
+            onSend();
+        })
+        .catch((error) => {
+            // Lidar com erros, se houver
+            console.error('Erro ao processar putPortion:', error);
+        });
+}
 
-  };
 
   return (
     <Modal
@@ -34,25 +42,28 @@ const PopUpPortion: FC<PopUpProps> = ({ isVisible, onClose, title, initialValue,
             value={value}
             onChangeText={handleValueChange}
             placeholder="Digite o valor inteiro"
-            keyboardType="numeric" // Configurando para aceitar apenas números
+            keyboardType="numeric"
           />
 
           <View style={styles.circleContainer}>
-            
-            <TouchableOpacity onPress={onClose}>
+            {/* Chama handleSend ao invés de onSend */}
+            <TouchableOpacity onPress={handleSend}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={onClose}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
-
           </View>
         </View>
       </View>
     </Modal>
   );
-};
+}
+
+
+
+
 
 const styles = StyleSheet.create({
   popupContainer: {
@@ -98,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PopUpPortion;
+

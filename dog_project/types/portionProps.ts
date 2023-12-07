@@ -1,5 +1,6 @@
 ﻿import { TouchableOpacityProps } from 'react-native';
+import { ReactNode } from "react";
 
 export interface portionProps extends TouchableOpacityProps {
-  real_portion: number;
+  children?: ReactNode;
 }

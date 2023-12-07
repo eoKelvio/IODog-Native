@@ -4,20 +4,16 @@ import { IndexProps } from "./types/types";
 import NavigationButton from "./components/NavButton";
 import Container from "./components/Container";
 import Board from "./components/Board";
-import PortionButton from "./components(old)/PortionButton";
+import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
-
-
 
 export default function Index({ navigation }: IndexProps) {
   return (
     <Container>
-
       <Board tittle="IODog" direction="column">
+        <PortionButton />
 
-        <PortionButton real_portion={9}/>
-        <FoodLevel food_level="80"/>
-        
+        <FoodLevel food_level="80" />
       </Board>
 
       <NavigationButton
@@ -25,7 +21,6 @@ export default function Index({ navigation }: IndexProps) {
         img_source={require("./imgs/log.png")}
         onPress={() => navigation.navigate("Log")}
       />
-
     </Container>
   );
 }
