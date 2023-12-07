@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
 
-import { patchHour, deleteHour, postHour } from '../API/Hours';
+import { patchHour, deleteHour } from '../API/Hours';
 
-interface CustomPopupProps {
+interface EditionPopUpProps {
   isVisible: boolean;
   onClose: () => void;
   onSend: (newTime: string) => void;
@@ -16,7 +16,7 @@ interface CustomPopupProps {
   id: number; // Adicionando o id como uma propriedade
 }
 
-const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, initialTime, img1, img2, id }) => {
+const EditionPopUp: FC<EditionPopUpProps> = ({ isVisible, onClose, onSend, title, initialTime, img1, img2, id }) => {
   const [time, setTime] = useState(initialTime);
 
 
@@ -71,7 +71,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
           />
 
           <View style={styles.circleContainer}>
-            <TouchableOpacity onPress={() => { onClose(); patch(); postHour; }}>
+            <TouchableOpacity onPress={() => { onClose(); onSend; patch(); }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { onClose(); hourDelete(); }}>
@@ -83,6 +83,8 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
     </Modal>
   );
 };
+
+export default EditionPopUp;
 
 const styles = StyleSheet.create({
   popupContainer: {
@@ -139,5 +141,3 @@ const styles = StyleSheet.create({
     height: 35,
   },
 });
-
-export default CustomPopup;

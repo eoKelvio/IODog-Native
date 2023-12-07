@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import CustomPopup from "../components(old)/CustomPopUp";
 import TimesProps from "../types/timeProps";
+import EditionPopUp from "./EditionPopUp";
 
 import { patchHour } from "../API/Hours";
+
 
 const Times = ({ children, id }: TimesProps) => {
   const imagemUrl = require("../imgs/relogio.png");
@@ -45,7 +46,7 @@ const Times = ({ children, id }: TimesProps) => {
         <Text style={styles.editText}>Editar</Text>
       </TouchableOpacity>
 
-      <CustomPopup
+      <EditionPopUp
         isVisible={isPopupVisible}
         onClose={closePopup}
         onSend={handleUpdateHour}

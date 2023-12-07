@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import CustomPopup from '../components(old)/CustomPopUp';
+import CreatePopUp from './CreatePopUp';
 
 import { postHour } from '../API/Hours'
 
@@ -32,7 +32,7 @@ const CreateHour = () => {
         </View>
       </TouchableOpacity>
 
-      <CustomPopup
+      <CreatePopUp
         isVisible={isPopupVisible}
         onClose={closePopup}
         onSend={postToApi}
