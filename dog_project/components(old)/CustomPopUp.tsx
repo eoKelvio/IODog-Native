@@ -46,8 +46,8 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
     patchHour(id, time)
   }
 
-  const post = () => {
-    postHour
+  const hourDelete = () => {
+    deleteHour(id)
   }
 
   return (
@@ -74,7 +74,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
             <TouchableOpacity onPress={() => { onClose(); patch(); postHour; }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { onClose(); deleteHour }}>
+            <TouchableOpacity onPress={() => { onClose(); hourDelete(); }}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>
