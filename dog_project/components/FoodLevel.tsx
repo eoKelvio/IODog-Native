@@ -1,15 +1,24 @@
-﻿import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  Image,
-} from "react-native";
+﻿import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ViewStyle, Image } from "react-native";
 
-import { foodLevelProps } from "../types/foodLevelProps";
+import getFoodLevel from "../API/foodLevel";
 
-export default function FoodLevel({ food_level }: foodLevelProps) {
+export default function FoodLevel() {
+  const [foodLevel, setFoodLevel] = useState();
+
+  useEffect(() => {
+    async function fetchFoodLevel() {
+      try {
+        const level = await getFoodLevel(); // Supondo que getFoodLevel é uma função assíncrona que retorna o nível de ração
+        setFoodLevel(level);
+      } catch (error) {
+        console.error("Erro ao obter o nível de ração:", error);
+      }
+    }
+
+    fetchFoodLevel();
+  }, []);
+
   const boxStyle: ViewStyle = {
     backgroundColor: "#1E86E6",
     width: "100%",
@@ -31,16 +40,14 @@ export default function FoodLevel({ food_level }: foodLevelProps) {
       </View>
 
       <View style={styles.divisor}>
-
         <View>
           <Text style={styles.defaultText}>Nível de ração</Text>
         </View>
 
         <View style={styles.rows}>
-          <Text style={styles.altText}>{food_level}</Text>
+          <Text style={styles.altText}>{foodLevel}</Text>
           <Text style={styles.altText}>%</Text>
         </View>
-
       </View>
     </View>
   );

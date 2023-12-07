@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { PopUpProps } from '../types/popUpProps';
+
 import { putPortion } from '../API/portion';
 
 export default function PortionPopUp({ isVisible, onClose, onSend, title, initialValue, img1, img2 }: PopUpProps) {
