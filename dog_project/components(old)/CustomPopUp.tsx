@@ -74,7 +74,7 @@ const CustomPopup: FC<CustomPopupProps> = ({ isVisible, onClose, onSend, title, 
             <TouchableOpacity onPress={() => { onClose(); patch(); postHour; }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={() => { onClose(); deleteHour }}>
               <Image source={img2} style={styles.circleImage} />
             </TouchableOpacity>
           </View>

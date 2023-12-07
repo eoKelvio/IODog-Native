@@ -3,6 +3,8 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import CustomPopup from "./CustomPopUp";
 import TimesProps from "../types/timeProps";
 
+import { deleteHour } from "../API/Hours";
+
 import { patchHour } from "../API/Hours";
 
 const Times = ({ children, id }: TimesProps) => {
@@ -13,7 +15,8 @@ const Times = ({ children, id }: TimesProps) => {
     setPopupVisible(true);
   };
 
-  const closePopup = () => {
+  const closePopup = async () => {
+    await deleteHour(id);
     setPopupVisible(false);
   };
 
