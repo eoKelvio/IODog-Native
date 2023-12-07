@@ -1,14 +1,11 @@
-﻿import React, { ReactNode, useState } from 'react';
-import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+﻿import React, { useState } from 'react';
+import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity } from 'react-native';
+import { portionProps } from '../types/portionProps';
+
 import PopUpPortion from './PopUpPortion';
 
-interface BoxProps extends TouchableOpacityProps {
-  children?: ReactNode;
-  image?: any;
-  real_portion: any;
-}
 
-export default function PortionButton({ children, image, real_portion, ...restProps }: BoxProps) {
+export default function PortionButton({ real_portion }: portionProps) {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
 
   const openPopUp = () => {
@@ -32,21 +29,30 @@ export default function PortionButton({ children, image, real_portion, ...restPr
 
   return (
     <View>
+
       <TouchableOpacity onPress={openPopUp}>
+
         <View style={[boxStyle]}>
+
           <View>
             <Image style={styles.imagen} source={require('../imgs/racao.png')} />
           </View>
+
           <View style={styles.divisor}>
+
             <View>
               <Text style={styles.defaultText}>Porções</Text>
             </View>
+
             <View style={styles.rows}>
               <Text style={styles.altText}>{real_portion}</Text>
               <Text style={styles.defaultText}>Und</Text>
             </View>
+
           </View>
+
         </View>
+
       </TouchableOpacity>
 
       {/* PopUpPortion component */}
@@ -58,6 +64,7 @@ export default function PortionButton({ children, image, real_portion, ...restPr
         img1={require('../imgs/verifica.png')}
         img2={require('../imgs/cancelar.png')}
       />
+      
     </View>
   );
 }

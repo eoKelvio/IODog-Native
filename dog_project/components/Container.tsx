@@ -1,8 +1,8 @@
 ﻿import React, { ReactNode } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { BoxProps } from "../types/types";
+import { View, StyleSheet } from "react-native";
+import ContainerProps from "../types/containerProps";
 
-export default function Container({ children }: BoxProps) {
+export default function Container({ children }: ContainerProps) {
   return (
     <View style={styles.container}>
       {React.Children.map(children, (child) => {

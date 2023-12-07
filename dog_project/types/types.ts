@@ -1,25 +1,41 @@
 ﻿import React, { ReactNode, useState } from "react";
-import { TouchableOpacity, Text, TouchableOpacityProps, StyleSheet, ImageSourcePropType, Image } from 'react-native';
+
+import { StackNavigationProp } from "@react-navigation/stack";
 
 export interface TimesProps {
   children?: ReactNode;
   id: number;
 }
 
-export interface BoxProps {
-  children?: ReactNode;
-  tittle?: string;
+
+export interface FetchLogsProps {
+  id: number;
+  food_liberation: boolean;
+  portions: number;
+  food_level: string;
+  created_at: string;
 }
 
-export interface CustomButtonProps extends TouchableOpacityProps {
-    title: string,
-    img_source?: ImageSourcePropType;
-  }
+export interface Hour {
+  id: number;
+  times: string;
+}
 
-  export interface FetchLogsProps {
-    id: number;
-    food_liberation: boolean;
-    portions: number;
-    food_level: string;
-    created_at: string;
-  }
+type RootStackParamList = {
+  Index: undefined;
+  Log: undefined;
+};
+
+export type IndexProps = {
+  navigation: StackNavigationProp<RootStackParamList, "Index">;
+};
+
+type RootStackParamList2 = {
+  Index: undefined;
+  Log: undefined;
+};
+
+export type LogProps = {
+  navigation: StackNavigationProp<RootStackParamList2, "Log">;
+};
+

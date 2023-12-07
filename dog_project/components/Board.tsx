@@ -1,10 +1,10 @@
 ﻿import React, { ReactNode } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { BoxProps } from "../types/types";
+import boardProps from "../types/boardProps";
 
 
 
-export default function Board({ children, tittle }: BoxProps) {
+export default function Board({ children, tittle }: boardProps) {
   return (
     <View style={styles.box}>
       <Text style={styles.tittle}>{tittle}</Text>
