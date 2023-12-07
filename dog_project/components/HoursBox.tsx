@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ViewStyle, ScrollView } from "react-native";
-import { Times } from "../components(old)/Times";
-import CreateHour from "../components(old)/CreateHour";
+import { Times } from "./Times";
+import CreateHour from "./CreateHour";
 
 import { fetchHours } from "../API/Hours";
 
@@ -30,7 +30,7 @@ export default function HoursBox({ direction }: BoxProps) {
 
     fetchAndSetHours();
 
-    const intervalId = setInterval(fetchAndSetHours, 1000);
+    const intervalId = setInterval(fetchAndSetHours, 5000);
 
     return () => clearInterval(intervalId);
   }, []);

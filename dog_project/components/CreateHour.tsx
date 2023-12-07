@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import CustomPopup from './CustomPopUp';
+import CustomPopup from '../components(old)/CustomPopUp';
 
 import { postHour } from '../API/Hours'
 
