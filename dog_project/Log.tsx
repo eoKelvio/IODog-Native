@@ -1,11 +1,10 @@
 // Log.tsx
 import React, { useState, useEffect } from "react";
-import CustomButton from "./components(old)/CustomButton";
 import Container from "./components/Container";
 import Board from "./components/Board";
 import { Text, ScrollView, StyleSheet } from "react-native";
 import fetchLogs from "./scripts/fecthLogs";
-import LogBox from "./components(old)/LogBox";
+import LogBox from "./components/LogBox";
 import { FetchLogsProps } from "./types/types";
 
 import { LogProps } from "./types/types";
