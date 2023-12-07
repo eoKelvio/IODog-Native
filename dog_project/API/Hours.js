@@ -52,8 +52,8 @@ export async function patchHour(id, newTime) {
   }
 }
 
-async function postHour(newTime) {
-  const link = `https://eokelvio.pythonanywhere.com/hours/`;
+export async function postHour(id, newTime) {
+  const link = `https://eokelvio.pythonanywhere.com/hours/${id}/`;
   try {
     const response = await fetch(link, {
       method: "POST",
