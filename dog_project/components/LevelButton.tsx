@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity } from "react-native";
 
-import PortionPopUp from "./portionPopUp";
-
 import getFoodLevel from "../API/foodLevel";
 import { postLevel } from "../API/log";
+import LevelPopUp from "./LevelPopUp";
 
 export default function LevelButton() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
@@ -80,11 +79,11 @@ export default function LevelButton() {
           </View>
         </View>
 
-        <PortionPopUp
+        <LevelPopUp
           isVisible={isPopUpVisible}
           onClose={closePopUp}
           onSend={attLevel}
-          title="Nivel de Ração"
+          title="Deseja resetar o nível de ração?"
           initialValue=""
           img1={require("../imgs/verifica.png")}
           img2={require("../imgs/cancelar.png")}

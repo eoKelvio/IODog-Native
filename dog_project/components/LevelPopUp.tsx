@@ -22,19 +22,6 @@ const LevelPopUp: FC<LevelPopUpProps> = ({ isVisible, onClose, onSend, title, in
     setValue(numericValue);
   }
 
-  function handleSend() {
-    // Chamando a função putPortion com o valor atual
-    putPortion(value)
-        .then(() => {
-            // Após a conclusão de putPortion
-            onClose();
-            onSend();
-        })
-        .catch((error) => {
-            // Lidar com erros, se houver
-            console.error('Erro ao processar putPortion:', error);
-        });
-}
 
 
   return (
@@ -48,17 +35,9 @@ const LevelPopUp: FC<LevelPopUpProps> = ({ isVisible, onClose, onSend, title, in
         <View style={styles.popupContent}>
           <Text style={styles.title}>{title}</Text>
 
-          <TextInput
-            style={styles.valueContainer}
-            value={value}
-            onChangeText={handleValueChange}
-            placeholder="Digite o valor inteiro"
-            keyboardType="numeric"
-          />
-
           <View style={styles.circleContainer}>
             {/* Chama handleSend ao invés de onSend */}
-            <TouchableOpacity onPress={handleSend}>
+            <TouchableOpacity onPress={postLevel}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
 
@@ -120,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePopUp;
+export default LevelPopUp;
