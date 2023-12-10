@@ -17,8 +17,6 @@ export default function Index({ navigation }: IndexProps) {
 
         <PortionButton />
 
-        <FoodLevel />
-
         <LevelButton/>
       </Board>
 
