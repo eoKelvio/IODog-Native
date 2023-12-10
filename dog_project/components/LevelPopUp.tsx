@@ -3,6 +3,7 @@ import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } fro
 import { isValid, parse } from 'date-fns';
 
 import { postLevel } from '../API/log';
+import { postFoodLevelAndPortion } from '../API/log';
 
 interface LevelPopUpProps {
   onClose: () => void;
@@ -37,7 +38,7 @@ const LevelPopUp: FC<LevelPopUpProps> = ({ isVisible, onClose, onSend, title, in
 
           <View style={styles.circleContainer}>
             {/* Chama handleSend ao invés de onSend */}
-            <TouchableOpacity onPress={postLevel}>
+            <TouchableOpacity onPress={postFoodLevelAndPortion}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
 

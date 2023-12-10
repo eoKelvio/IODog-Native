@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity } from "reac
 import getFoodLevel from "../API/foodLevel";
 import { postLevel } from "../API/log";
 import LevelPopUp from "./LevelPopUp";
+import { getPortion } from "../API/portion";
+import { postFoodLevelAndPortion } from "../API/log";
 
 export default function LevelButton() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
@@ -17,7 +19,7 @@ export default function LevelButton() {
     setPopUpVisible(false);
   };
 
-  const [foodLevel, setFoodLevel] = useState();
+  const [foodLevel, setFoodLevel] = useState(0);
 
   useEffect(() => {
     async function fetchFoodLevel() {
@@ -32,18 +34,42 @@ export default function LevelButton() {
     fetchFoodLevel();
   }, []);
 
-  const attLevel = () => {
+  const attLevelAndPortion = async () => {
+    try {
+      // Suponha que você deseja enviar um valor específico, como 100
+      const novoNivel = 100;
 
-  postLevel(100)
-    .then((response) => {
-      console.log("Dados enviados para a API com sucesso:", response);
-    })
-    .catch((error) => {
-      console.error("Erro ao enviar dados para a API:", error);
-    })
-    .finally(() => {
+      // Obter a porção atual
+      const porcaoAtual = await getPortion();
+
+      // Chama a função para enviar os dados para a API
+      await postFoodLevelAndPortion(novoNivel, porcaoAtual);
+
+      // Atualiza o estado local com o novo valor de ração
+      setFoodLevel(novoNivel);
+
+      // Fecha o popup
       closePopUp();
-    });
+
+      console.log("Dados enviados para a API com sucesso.");
+    } catch (error) {
+      console.error("Erro ao enviar dados para a API:", error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchPortion();
+  }, []);
+
+  const fetchPortion = async () => {
+    try {
+      const portionValue = await getPortion();
+      setViewValue(portionValue);
+    } catch (error) {
+      // Handle error if needed
+      console.error("Error fetching portion:", error);
+    }
   };
 
   const boxStyle: ViewStyle = {
@@ -83,7 +109,7 @@ export default function LevelButton() {
         <LevelPopUp
           isVisible={isPopUpVisible}
           onClose={closePopUp}
-          onSend={attLevel}
+          onSend={attLevelAndPortion}
           title="Deseja resetar o nível de ração?"
           initialValue=""
           img1={require("../imgs/verifica.png")}
