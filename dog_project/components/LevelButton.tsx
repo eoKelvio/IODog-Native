@@ -65,7 +65,7 @@ export default function LevelButton() {
   const fetchPortion = async () => {
     try {
       const portionValue = await getPortion();
-      setViewValue(portionValue);
+      // setViewValue(portionValue);
     } catch (error) {
       // Handle error if needed
       console.error("Error fetching portion:", error);
