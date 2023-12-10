@@ -22,7 +22,8 @@ export default function LevelButton() {
   useEffect(() => {
     async function fetchFoodLevel() {
       try {
-        const level = await getFoodLevel(); 
+        const level = await getFoodLevel(); // Supondo que getFoodLevel é uma função assíncrona que retorna o nível de ração
+        setFoodLevel(level);
       } catch (error) {
         console.error("Erro ao obter o nível de ração:", error);
       }
