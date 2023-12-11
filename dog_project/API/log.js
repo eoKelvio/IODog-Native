@@ -1,58 +1,36 @@
-﻿export async function postLevel(foodLiberation, portions, foodLevel) {
-    const link = `https://eokelvio.pythonanywhere.com/log/`;
-    try {
-      const data = {
-        food_liberation: foodLiberation,
-        portions: portions,
-        food_level: foodLevel,
-      };
-  
-      const response = await fetch(link, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (response.ok) {
-        const attLevel = await response.json();
-        console.log("Nível Atualizado:", attLevel);
-      } else {
-        console.error("Erro ao atualizar o Nível:", response.statusText);
-      }
-    } catch (error) {
-      console.error(error);
+﻿async function newFoodLevel() {
+  try {
+    const respostaLog = await fetch('https://eokelvio.pythonanywhere.com/log/');
+    const dadosLog = await respostaLog.json();
+    
+    if (!dadosLog || dadosLog.length === 0) {
+      console.log('Nenhum log disponível.');
+      return;
     }
+
+    const logMaisRecente = dadosLog[dadosLog.length - 1];
+    
+    const url = 'https://eokelvio.pythonanywhere.com/log/';
+    const dadosParaEnviar = {
+      "food_liberation": false, // Substitua pelo valor desejado para food_liberation
+      "portions": logMaisRecente.portions,
+      "food_level": "100" // Substitua pelo valor desejado para food_level
+    };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dadosParaEnviar)
+    };
+
+    const respostaEnvio = await fetch(url, options);
+    const respostaJson = await respostaEnvio.json();
+    console.log('Resposta do servidor:', respostaJson);
+  } catch (erro) {
+    console.error('Ocorreu um erro:', erro);
   }
+}
 
-
-  const API_URL = "https://eokelvio.pythonanywhere.com/log/";
-
-  export async function postFoodLevelAndPortion(foodLevel, portion) {
-    const foodLevelNumber = Number(foodLevel);
-    const portionNumber = Number(portion);
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST", 
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          food_level: foodLevelNumber,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Falha ao enviar dados para a API");
-      }
-
-      const responseData = await response.json();
-      return responseData; // Pode personalizar o retorno conforme necessário
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-  
+// Chama a função para obter o log e enviar os dados
+newFoodLevel();
