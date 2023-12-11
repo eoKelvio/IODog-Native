@@ -2,8 +2,7 @@ import React, { FC, useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { isValid, parse } from 'date-fns';
 
-import { postLevel } from '../API/log';
-import { postFoodLevelAndPortion } from '../API/log';
+import { newFoodLevel } from '../API/log';
 
 interface LevelPopUpProps {
   onClose: () => void;
@@ -16,12 +15,7 @@ interface LevelPopUpProps {
 }
 
 const LevelPopUp: FC<LevelPopUpProps> = ({ isVisible, onClose, onSend, title, initialValue, img1, img2 }) => {
-  const [value, setValue] = useState(initialValue);
 
-  function handleValueChange(newValue: string) {
-    const numericValue = newValue.replace(/[^0-9]/g, '');
-    setValue(numericValue);
-  }
 
 
 
@@ -37,8 +31,7 @@ const LevelPopUp: FC<LevelPopUpProps> = ({ isVisible, onClose, onSend, title, in
           <Text style={styles.title}>{title}</Text>
 
           <View style={styles.circleContainer}>
-            {/* Chama handleSend ao invés de onSend */}
-            <TouchableOpacity onPress={postFoodLevelAndPortion}>
+            <TouchableOpacity onPress={() => { onClose(); newFoodLevel() }}>
               <Image source={img1} style={styles.circleImage} />
             </TouchableOpacity>
 

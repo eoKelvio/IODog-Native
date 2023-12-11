@@ -1,4 +1,4 @@
-﻿async function newFoodLevel() {
+﻿export async function newFoodLevel() {
   try {
     const respostaLog = await fetch('https://eokelvio.pythonanywhere.com/log/');
     const dadosLog = await respostaLog.json();

@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity } from "react-native";
 
 import getFoodLevel from "../API/foodLevel";
-import { postLevel } from "../API/log";
 import LevelPopUp from "./LevelPopUp";
-import { getPortion } from "../API/portion";
-import { postFoodLevelAndPortion } from "../API/log";
+import { newFoodLevel } from "../API/log";
 
 export default function LevelButton() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
-  const [viewValue, setViewValue] = useState<number | undefined>();
 
   const openPopUp = () => {
     setPopUpVisible(true);
@@ -19,58 +16,28 @@ export default function LevelButton() {
     setPopUpVisible(false);
   };
 
+  const UpdateLevel = () => {
+    newFoodLevel();
+    closePopUp();
+  };
+
   const [foodLevel, setFoodLevel] = useState(0);
 
-  useEffect(() => {
-    async function fetchFoodLevel() {
-      try {
-        const level = await getFoodLevel(); // Supondo que getFoodLevel é uma função assíncrona que retorna o nível de ração
-        setFoodLevel(level);
-      } catch (error) {
-        console.error("Erro ao obter o nível de ração:", error);
-      }
-    }
-
-    fetchFoodLevel();
-  }, []);
-
-  const attLevelAndPortion = async () => {
+  const fetchFoodLevel = async () => {
     try {
-      // Suponha que você deseja enviar um valor específico, como 100
-      const novoNivel = 100;
-
-      // Obter a porção atual
-      const porcaoAtual = await getPortion();
-
-      // Chama a função para enviar os dados para a API
-      await postFoodLevelAndPortion(novoNivel, porcaoAtual);
-
-      // Atualiza o estado local com o novo valor de ração
-      setFoodLevel(novoNivel);
-
-      // Fecha o popup
-      closePopUp();
-
-      console.log("Dados enviados para a API com sucesso.");
+      const level = await getFoodLevel();
+      setFoodLevel(level);
     } catch (error) {
-      console.error("Erro ao enviar dados para a API:", error);
+      console.error("Erro ao obter o nível de ração:", error);
     }
   };
 
-
   useEffect(() => {
-    fetchPortion();
+    const intervalId = setInterval(fetchFoodLevel, 1000);
+  
+    return () => clearInterval(intervalId);
   }, []);
 
-  const fetchPortion = async () => {
-    try {
-      const portionValue = await getPortion();
-      // setViewValue(portionValue);
-    } catch (error) {
-      // Handle error if needed
-      console.error("Error fetching portion:", error);
-    }
-  };
 
   const boxStyle: ViewStyle = {
     backgroundColor: "#1E86E6",
@@ -109,7 +76,7 @@ export default function LevelButton() {
         <LevelPopUp
           isVisible={isPopUpVisible}
           onClose={closePopUp}
-          onSend={attLevelAndPortion}
+          onSend={UpdateLevel}
           title="Deseja resetar o nível de ração?"
           initialValue=""
           img1={require("../imgs/verifica.png")}
