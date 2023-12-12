@@ -7,6 +7,7 @@ import Board from "./components/Board";
 import PortionButton from "./components/PortionButton";
 import FoodLevel from "./components/FoodLevel";
 import HoursBox from "./components/HoursBox";
+import LevelButton from "./components/LevelButton";
 
 export default function Index({ navigation }: IndexProps) {
   return (
@@ -16,7 +17,7 @@ export default function Index({ navigation }: IndexProps) {
 
         <PortionButton />
 
-        <FoodLevel />
+        <LevelButton/>
       </Board>
 
       <NavigationButton

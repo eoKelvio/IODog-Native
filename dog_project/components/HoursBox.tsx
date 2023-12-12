@@ -30,7 +30,7 @@ export default function HoursBox({ direction }: BoxProps) {
 
     fetchAndSetHours();
 
-    const intervalId = setInterval(fetchAndSetHours, 5000);
+    const intervalId = setInterval(fetchAndSetHours, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
