@@ -1,13 +1,40 @@
-﻿import React, { ReactNode } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ViewStyle, ScrollView } from "react-native";
-import BotaoEditar from "./BotaoEditar";
+import { Times } from "./Times";
+import CreateHour from "./CreateHour";
+
+import { fetchHours } from "../API/Hours";
 
 interface BoxProps {
-  children?: ReactNode;
-  direction: "row" | "column"; // Define o tipo específico para direction
+  direction: "row" | "column";
 }
 
-export default function HoursBox({ children, direction }: BoxProps) {
+interface Hour {
+  id: number; // Defina o tipo correto para o ID
+  times: string; // Defina o tipo correto para os horários
+}
+
+export default function HoursBox({ direction }: BoxProps) {
+  const [hours, setHours] = useState<Hour[]>([]);
+
+  useEffect(() => {
+    async function fetchAndSetHours() {
+      try {
+        const extractedHours = await fetchHours();
+        setHours(extractedHours);
+        console.log("Horários atualizados:", extractedHours);
+      } catch (error) {
+        console.error("Erro ao buscar os horários:", error);
+      }
+    }
+
+    fetchAndSetHours();
+
+    const intervalId = setInterval(fetchAndSetHours, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   const boxStyle: ViewStyle = {
     backgroundColor: "#1E86E6",
     width: "100%",
@@ -18,26 +45,28 @@ export default function HoursBox({ children, direction }: BoxProps) {
 
   const contentContainerStyle: ViewStyle = {
     flexDirection: direction === "row" ? "row" : "column",
-    alignItems: "center", // Alinha o conteúdo centralizado horizontalmente
-    justifyContent: "center", // Alinha o conteúdo centralizado verticalmente
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
-    gap:10
+    gap: 10,
   };
 
   return (
-    <ScrollView style={boxStyle} showsVerticalScrollIndicator={false}
-    showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      style={boxStyle}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    >
       <View style={contentContainerStyle}>
         <Text style={styles.defaultText}>Horários programados</Text>
         <View style={styles.gap}>
-          {React.Children.map(children, (child) => {
-            if (React.isValidElement(child) && child.type === Text) {
-              return React.cloneElement(child, {});
-            }
-            return child;
-          })}
+          {hours.map((hour) => (
+            <Times key={hour.id} id={hour.id}>
+              {hour.times}
+            </Times>
+          ))}
         </View>
-        <BotaoEditar />
+        <CreateHour />
       </View>
     </ScrollView>
   );
@@ -50,9 +79,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
   },
-  gap : {
-    display:"flex",
-    gap:10
-  }
+  gap: {
+    display: "flex",
+    gap: 10,
+  },
 });
-

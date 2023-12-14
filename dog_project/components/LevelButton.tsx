@@ -1,34 +1,12 @@
-﻿import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ViewStyle, Image, TouchableOpacity } from "react-native";
 
-import PortionPopUp from "./portionPopUp";
+import getFoodLevel from "../API/foodLevel";
+import LevelPopUp from "./LevelPopUp";
+import { newFoodLevel } from "../API/log";
 
-import { getPortion } from "../API/portion";
-
-export default function PortionButton() {
+export default function LevelButton() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
-  const [viewValue, setViewValue] = useState<number | undefined>();
-
-  useEffect(() => {
-    fetchPortion();
-  }, []);
-
-  const fetchPortion = async () => {
-    try {
-      const portionValue = await getPortion();
-      setViewValue(portionValue);
-    } catch (error) {
-      // Handle error if needed
-      console.error("Error fetching portion:", error);
-    }
-  };
 
   const openPopUp = () => {
     setPopUpVisible(true);
@@ -37,6 +15,29 @@ export default function PortionButton() {
   const closePopUp = () => {
     setPopUpVisible(false);
   };
+
+  const UpdateLevel = () => {
+    newFoodLevel();
+    closePopUp();
+  };
+
+  const [foodLevel, setFoodLevel] = useState(0);
+
+  const fetchFoodLevel = async () => {
+    try {
+      const level = await getFoodLevel();
+      setFoodLevel(level);
+    } catch (error) {
+      console.error("Erro ao obter o nível de ração:", error);
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchFoodLevel, 1000);
+  
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   const boxStyle: ViewStyle = {
     backgroundColor: "#1E86E6",
@@ -56,27 +57,27 @@ export default function PortionButton() {
           <View>
             <Image
               style={styles.imagen}
-              source={require("../imgs/racao.png")}
+              source={require("../imgs/sacoRacao.png")}
             />
           </View>
 
           <View style={styles.divisor}>
             <View>
-              <Text style={styles.defaultText}>Porções</Text>
+              <Text style={styles.defaultText}>Nível de ração</Text>
             </View>
 
             <View style={styles.rows}>
-              <Text style={styles.altText}>{viewValue}</Text>
-              <Text style={styles.defaultText}>Und</Text>
+              <Text style={styles.altText}>{foodLevel}</Text>
+              <Text style={styles.altText}>%</Text>
             </View>
           </View>
         </View>
 
-        <PortionPopUp
+        <LevelPopUp
           isVisible={isPopUpVisible}
           onClose={closePopUp}
-          onSend={fetchPortion}
-          title="Definir Porção"
+          onSend={UpdateLevel}
+          title="Deseja resetar o nível de ração?"
           initialValue=""
           img1={require("../imgs/verifica.png")}
           img2={require("../imgs/cancelar.png")}

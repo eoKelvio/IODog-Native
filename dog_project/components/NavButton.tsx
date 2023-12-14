@@ -1,9 +1,10 @@
-import React from 'react';
-import { TouchableOpacity, Text, TouchableOpacityProps, StyleSheet, ImageSourcePropType, Image } from 'react-native';
+﻿import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { NavButtonProps } from '../types/types';
 
 
 
-export default function CustomButton({ title,img_source, ...restProps }: CustomButtonProps) {
+export default function NavigationButton({ title, img_source, ...restProps }: NavButtonProps) {
 
   return (
     <TouchableOpacity style={styles.buttonContainer} {...restProps}>
