@@ -7,6 +7,8 @@ para dentro dos componentes. Pequenos ajustes em componentes a parte, e auxilio 
 
 ## Teodoro
 
+Responsável pela comunicação entre o APP e a API, criação dos scripts para funcionalidades de coleta de logs e refatoração das telas.
+
 ## Talia
 
 ## Luana
