@@ -51,7 +51,8 @@ Componentes:
 - `CreatePopUp`: é o popUp utilizado para criar um novo horário.
 - `PortionButton`: foi criado para que consiguamos mostrar e atualizar a quantidade de porções de ração que deverá ser liberada. Ao clicar no PortionButton um popUp abrirá para fazer a alteração. Esse componente realiza uma requisição (GET) para a API para que possa mostrar o número de porções sempre atualizado.
 - `portionPopUp`: assim que aberto, permite que o número de porções seja alterado. Esse componente fas uma requisição (POST) para a API, assim salvando o número de porções desejado.
-- `FoodLevel`: É o componete que nos mostra a quantidade de ração existente no estoque do dispenser de ração. Esse componente faz uma requisição (GET) para a API para poder manter os números atualizados.
+- `LevelButon`: É o componete que nos mostra a quantidade de ração existente no estoque do dispenser de ração. Esse componente faz uma requisição (GET) para a API para poder manter os números atualizados. Ao cliclar nesse componente abrirá um popUp.
+- `LevelPopUp`: assim que aberto, esse popUp permite que você faça um reset da procentagem de ração do estoque. 
 - `NavButton`: é um botão criado para conseguirmos acessar a tela de de log's da aplicação e também para voltarmos para a tela principal.
 - `LogBox`: é onde os logs aparecerão na aplicação, ele mostra o horário, a quantidade de porção, o nível da comida e se foi liberado ou não.
 - `Index`: é a nossa tela principal.
