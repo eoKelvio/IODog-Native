@@ -15,3 +15,4 @@ Responsável pela implementações do Pop-Up de edição de horário para libera
 Resposável pela crição e implementação de alguns componentes, criação da lógica para criação de novos horários, criação da função de reload da página, método delet, reset do nível de ração e algumas refatorações do código.
 
 ## Vinicius
+Responsável pela conversão de dados recebidos por json da URL Log, para apresentação dos dados na aba de Log do apliativo. Criação da estilização das boxes de dados da aba de Log.
