@@ -10,6 +10,12 @@ para dentro dos componentes. Pequenos ajustes em componentes a parte, e auxilio 
 Responsável pela comunicação entre o APP e a API, criação dos scripts para funcionalidades de coleta de logs e refatoração das telas.
 
 ## Talia
+- Responsável pela implementações do Pop-Up de edição de horário para liberação da ração
+- Implementação do Pop-Up de adição/definição de horário para liberação da ração 
+- Implementação do Pop-Up de edição de Porcionamento da ração a ser liberada
+- Responsável pela padronização e estilização dos Pop-Ups
+- Responsável por algumas refatorações de código para organização e possibilitar as demais implementações
+- Implementação do fecthHours que acessa a API e trás as informações dos horario para a aplicação
 
 ## Luana
 
