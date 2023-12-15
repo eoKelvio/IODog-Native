@@ -2,6 +2,9 @@
 
 Este projeto tem como objetivo criar uma solução abrangente para o controle de liberação de ração por horário, integrando um back-end desenvolvido em Django Rest Framework, um front-end em React Native com TypeScript, e um projeto em Esp32. A necessidade surgiu da demanda de criar um aplicativo que oferecesse controle preciso sobre a alimentação de animais através da liberação de porções de ração em momentos específicos. Esse projeto foi feito com base na integração ADS - Senai com a Mecatrônica - Senai.
 
+## Url Vídeo Pitch do Projeto
+- https://drive.google.com/file/d/1UM_gGF5XoI0Be2sbC5jBupH_1-XiDRvM/view?usp=sharing
+
 ## Pré-requisitos
 
 - [Node.js](https://nodejs.org/)
@@ -60,6 +63,3 @@ Componentes:
 
 ## Url Back-end
 - https://eokelvio.pythonanywhere.com/
-
-## Url Vídeo Pitch do Projeto
-- https://drive.google.com/file/d/1UM_gGF5XoI0Be2sbC5jBupH_1-XiDRvM/view?usp=sharing
