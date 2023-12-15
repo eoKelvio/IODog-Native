@@ -60,3 +60,6 @@ Componentes:
 
   ## Url Back-end
 - https://eokelvio.pythonanywhere.com/
+
+  ## Url do Vídeo Expplicando o Projeto
+  - https://drive.google.com/file/d/1UM_gGF5XoI0Be2sbC5jBupH_1-XiDRvM/view?usp=sharing
