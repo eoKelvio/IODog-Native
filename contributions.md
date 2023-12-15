@@ -9,6 +9,6 @@ para dentro dos componentes. Pequenos ajustes em componentes a parte, e auxilio 
 
 ## Talia
 
-## Luana *frescurenta*
+## Luana
 
 ## Vinicius
