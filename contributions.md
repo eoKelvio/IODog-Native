@@ -12,7 +12,7 @@ Responsável pela comunicação entre o APP e a API, criação dos scripts para 
 Responsável pela implementações do Pop-Up de edição de horário para liberação da ração. Implementação do Pop-Up de adição/definição de horário para liberação da ração. Implementação do Pop-Up de edição de Porcionamento da ração a ser liberada. Responsável pela padronização e estilização dos Pop-Ups. Responsável por algumas refatorações de código para organização e possibilitar as demais implementações. Implementação do fecthHours que acessa a API e trás as informações dos horario para a aplicação
 
 ## Luana
-Resposável pela crição e implementação de alguns componentes, criação da lógica para criação de novos horários, criação da função de reload da página, método delet, reset do nível de ração e algumas refatorações do código.
+Resposável pela crição e implementação de alguns componentes, criação da lógica para criação de novos horários, criação da função de reload da página, método delet, reset do nível de ração e algumas refatorações do código. Responsável pela criação de parte do README
 
 ## Vinicius
 Responsável pela conversão de dados recebidos por json da URL Log, para apresentação dos dados na aba de Log do apliativo. Criação da estilização e formatação das boxes de dados da aba de relatórios.
