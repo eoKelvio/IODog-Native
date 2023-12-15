@@ -62,5 +62,5 @@ Componentes:
 - `Log`: é a nossa tela secundaria.
 
 ## Url Back-end
-- https://eokelvio.pythonanywhere.com/
+- API Root: https://eokelvio.pythonanywhere.com/
 - GitHub: https://github.com/eoKelvio/IODog
